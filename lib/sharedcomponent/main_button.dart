@@ -19,7 +19,7 @@ class MainButton extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
-          side: BorderSide(color: Colors.black, width: 0.1),
+          //side: BorderSide(color: Colors.black, width: 0.1),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
