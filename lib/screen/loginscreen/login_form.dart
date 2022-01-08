@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
-import 'package:playtogether_hirer/sharedcomponent/loginerrorform.dart';
-import 'package:playtogether_hirer/sharedcomponent/mainbutton1.dart';
+import 'package:playtogether_hirer/sharedcomponent/login_error_form.dart';
+import 'package:playtogether_hirer/sharedcomponent/main_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -77,12 +77,11 @@ class _LoginFormState extends State<LoginForm> {
             listError.contains(invalidPassError)) {
           removeError(error: invalidPassError);
         }
-        return null;
+        return;
       },
 
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(passNullError)) {
+        if ((value!.isEmpty) && !listError.contains(passNullError)) {
           addError(error: passNullError);
           return "";
         } else if (!passwordValidatorRegExp.hasMatch(value) &&
@@ -129,11 +128,10 @@ class _LoginFormState extends State<LoginForm> {
             listError.contains(invalidEmailError)) {
           removeError(error: invalidEmailError);
         }
-        return null;
+        return;
       },
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(emailNullError)) {
+        if ((value!.isEmpty) && !listError.contains(emailNullError)) {
           addError(error: emailNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value) &&

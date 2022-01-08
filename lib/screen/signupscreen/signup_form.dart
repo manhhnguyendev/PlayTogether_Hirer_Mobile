@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
-import 'package:playtogether_hirer/sharedcomponent/loginerrorform.dart';
-import 'package:playtogether_hirer/sharedcomponent/mainbutton1.dart';
+import 'package:playtogether_hirer/sharedcomponent/login_error_form.dart';
+import 'package:playtogether_hirer/sharedcomponent/main_button.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -82,11 +82,10 @@ class _SignUpFromState extends State<SignUpForm> {
             listError.contains(invalidEmailError)) {
           removeError(error: invalidEmailError);
         }
-        return null;
+        return;
       },
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(emailNullError)) {
+        if ((value!.isEmpty) && !listError.contains(emailNullError)) {
           addError(error: emailNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value) &&
@@ -122,12 +121,11 @@ class _SignUpFromState extends State<SignUpForm> {
             listError.contains(invalidPassError)) {
           removeError(error: invalidPassError);
         }
-        return null;
+        return;
       },
 
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(passNullError)) {
+        if ((value!.isEmpty) && !listError.contains(passNullError)) {
           addError(error: passNullError);
           return "";
         } else if (!passwordValidatorRegExp.hasMatch(value) &&
@@ -172,12 +170,11 @@ class _SignUpFromState extends State<SignUpForm> {
         } else if (value.isNotEmpty && password == confirm_pass) {
           removeError(error: matchPassError);
         }
-        return null;
+        return;
       },
 
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(confirmNullError)) {
+        if ((value!.isEmpty) && !listError.contains(confirmNullError)) {
           addError(error: confirmNullError);
           return "";
         } else if (password != value) {

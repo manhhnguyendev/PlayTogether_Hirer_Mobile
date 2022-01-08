@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/screen/loginscreen/forgotpass_newacc_area.dart';
+import 'package:playtogether_hirer/screen/loginscreen/forgot_and_new_account_area.dart';
 import 'package:playtogether_hirer/screen/loginscreen/login_form.dart';
 import 'package:playtogether_hirer/screen/signupscreen/signup_page.dart';
 import 'dart:core';
-import 'package:playtogether_hirer/sharedcomponent/googleloginbutton.dart';
+import 'package:playtogether_hirer/sharedcomponent/google_login_button.dart';
 // import 'package:playtogether_hirer/sharedcomponent/loginerrorform.dart';
 // import 'package:playtogether_hirer/sharedcomponent/mainbutton1.dart';
 // import 'package:playtogether_hirer/const.dart';
