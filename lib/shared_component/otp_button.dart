@@ -12,7 +12,7 @@ class _OTPButtonState extends State<OTPButton> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+      margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
       width: size.width,
       height: size.height / 14,
       child: Card(
@@ -26,10 +26,8 @@ class _OTPButtonState extends State<OTPButton> {
             color: const Color.fromRGBO(165, 165, 165, 1),
             //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
             onPressed: () {},
-            child: Container(
-              child: const Text("Lấy mã OTP",
-                  style: TextStyle(color: Colors.white, fontSize: 13.5)),
-            ),
+            child: const Text("Lấy mã OTP",
+                style: TextStyle(color: Colors.white, fontSize: 13.5)),
           ),
         ),
       ),

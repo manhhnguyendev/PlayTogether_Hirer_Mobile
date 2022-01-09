@@ -26,7 +26,7 @@ class CompleteProfilePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: CompleteProfileForm(),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
         ],
