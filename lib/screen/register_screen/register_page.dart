@@ -23,7 +23,7 @@ class RegisterPage extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: SignUpForm(),
+              child: RegisterForm(),
             ),
           ],
         ),
