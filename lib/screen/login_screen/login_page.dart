@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
             child: LoginForm(),
           ),
           SizedBox(
-            height: size.height / 50,
+            height: size.height / 40,
           ),
           const ForgotPassAndCreateNewAccArea(),
           SizedBox(
@@ -74,7 +74,7 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             height: size.height / 50,
           ),
-          GoogleButton(onpress: () {}),
+          GoogleButton(),
         ]),
       ),
     );

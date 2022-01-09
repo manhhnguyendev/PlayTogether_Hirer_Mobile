@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GoogleButton extends StatelessWidget {
-  final Function onpress;
   const GoogleButton({
     Key? key,
-    required this.onpress,
   }) : super(key: key);
 
   @override
