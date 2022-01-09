@@ -3,14 +3,14 @@ import 'package:playtogether_hirer/const.dart';
 import 'package:playtogether_hirer/shared_component/login_error_form.dart';
 import 'package:playtogether_hirer/shared_component/main_button.dart';
 
-class SignUpForm extends StatefulWidget {
-  const SignUpForm({Key? key}) : super(key: key);
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({Key? key}) : super(key: key);
 
   @override
-  _SignUpFromState createState() => _SignUpFromState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _SignUpFromState extends State<SignUpForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
