@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
-import 'package:playtogether_hirer/sharedcomponent/login_error_form.dart';
-import 'package:playtogether_hirer/sharedcomponent/main_button.dart';
+import 'package:playtogether_hirer/shared_component/login_error_form.dart';
+import 'package:playtogether_hirer/shared_component/main_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -18,17 +18,19 @@ class _LoginFormState extends State<LoginForm> {
   bool obsecure = true;
 
   void addError({String? error}) {
-    if (!listError.contains(error))
+    if (!listError.contains(error)) {
       setState(() {
         listError.add(error);
       });
+    }
   }
 
   void removeError({String? error}) {
-    if (listError.contains(error))
+    if (listError.contains(error)) {
       setState(() {
         listError.remove(error);
       });
+    }
   }
 
   @override
@@ -42,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Column(
               children: [
                 buildEmailField(),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 buildPasswordField(),
@@ -94,20 +96,20 @@ class _LoginFormState extends State<LoginForm> {
 
       decoration: InputDecoration(
           //floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           labelText: "Mật khẩu",
           hintText: "Nhập vào mật khẩu",
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     obsecure = !obsecure;
                   }),
-              icon: Icon(
+              icon: const Icon(
                 Icons.remove_red_eye,
                 size: 25,
                 color: Colors.black,
@@ -140,7 +142,7 @@ class _LoginFormState extends State<LoginForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         //floatingLabelBehavior: FloatingLabelBehavior.always,
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         labelText: "Email",

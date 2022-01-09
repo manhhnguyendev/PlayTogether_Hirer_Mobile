@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/screen/loginscreen/forgot_and_new_account_area.dart';
-import 'package:playtogether_hirer/screen/loginscreen/login_form.dart';
-import 'package:playtogether_hirer/screen/signupscreen/signup_page.dart';
+import 'package:playtogether_hirer/screen/login_screen/forgot_and_new_account_area.dart';
+import 'package:playtogether_hirer/screen/login_screen/login_form.dart';
 import 'dart:core';
-import 'package:playtogether_hirer/sharedcomponent/google_login_button.dart';
-// import 'package:playtogether_hirer/sharedcomponent/loginerrorform.dart';
-// import 'package:playtogether_hirer/sharedcomponent/mainbutton1.dart';
-// import 'package:playtogether_hirer/const.dart';
+import 'package:playtogether_hirer/shared_component/google_login_button.dart';
 
 class LoginPage extends StatelessWidget {
   static String routeName = "/login";
@@ -18,8 +14,7 @@ class LoginPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
-            child: Column(children: <Widget>[
+        child: Column(children: <Widget>[
           Container(
             width: size.width,
             height: size.height * 0.45,
@@ -29,14 +24,14 @@ class LoginPage extends StatelessWidget {
                     image: AssetImage("assets/images/playtogetherlogo.png"),
                     fit: BoxFit.cover)),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: LoginForm(),
           ),
           SizedBox(
             height: size.height / 50,
           ),
-          ForgotPassAndCreateNewAccArea(),
+          const ForgotPassAndCreateNewAccArea(),
           SizedBox(
             height: size.height / 40,
           ),
@@ -45,7 +40,7 @@ class LoginPage extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                   decoration: BoxDecoration(
                       color: Colors.black38,
                       border: Border.all(color: Colors.black45)),
@@ -55,18 +50,16 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
+              const Expanded(
                 flex: 1,
-                child: Container(
-                  child: Text("Hoặc",
-                      style: TextStyle(fontSize: 17, color: Colors.grey),
-                      textAlign: TextAlign.center),
-                ),
+                child: Text("Hoặc",
+                    style: TextStyle(fontSize: 17, color: Colors.grey),
+                    textAlign: TextAlign.center),
               ),
               Expanded(
                 flex: 1,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                  margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                   decoration: BoxDecoration(
                       color: Colors.black38,
                       border: Border.all(color: Colors.black45)),
@@ -82,7 +75,7 @@ class LoginPage extends StatelessWidget {
             height: size.height / 50,
           ),
           GoogleButton(onpress: () {}),
-        ])),
+        ]),
       ),
     );
   }
