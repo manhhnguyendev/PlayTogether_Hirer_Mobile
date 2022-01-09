@@ -75,10 +75,11 @@ class _LoginFormState extends State<LoginForm> {
       onChanged: (value) {
         if (value.isNotEmpty && listError.contains(passNullError)) {
           removeError(error: passNullError);
-        } else if (passwordValidatorRegExp.hasMatch(value) &&
-            listError.contains(invalidPassError)) {
-          removeError(error: invalidPassError);
         }
+        //  else if (passwordValidatorRegExp.hasMatch(value) &&
+        //     listError.contains(invalidPassError)) {
+        //   removeError(error: invalidPassError);
+        // }
         return;
       },
 
@@ -86,11 +87,12 @@ class _LoginFormState extends State<LoginForm> {
         if ((value!.isEmpty) && !listError.contains(passNullError)) {
           addError(error: passNullError);
           return "";
-        } else if (!passwordValidatorRegExp.hasMatch(value) &&
-            !listError.contains(invalidPassError)) {
-          addError(error: invalidPassError);
-          return "";
         }
+        //  else if (!passwordValidatorRegExp.hasMatch(value) &&
+        //     !listError.contains(invalidPassError)) {
+        //   addError(error: invalidPassError);
+        //   return "";
+        // }
         return null;
       },
 
@@ -105,6 +107,8 @@ class _LoginFormState extends State<LoginForm> {
           focusedBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
+          errorBorder: OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     obsecure = !obsecure;
@@ -153,6 +157,8 @@ class _LoginFormState extends State<LoginForm> {
         focusedBorder: OutlineInputBorder(
           gapPadding: 10,
         ),
+        errorBorder: OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
       ),
     );
   }
