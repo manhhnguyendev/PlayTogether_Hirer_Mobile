@@ -87,12 +87,12 @@ class _RegisterFormState extends State<RegisterForm> {
                 print("_formKey.currentState is null!");
               } else if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                if (listErrorEmail.length ==
-                        1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
-                    listErrorPass.length == 1 &&
-                    listErrorConfirm.length == 1 &&
-                    listErrorOTP.length == 1)
-                  Navigator.pushNamed(context, CompleteProfilePage.routeName);
+                // if (listErrorEmail.length ==
+                //         1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                //     listErrorPass.length == 1 &&
+                //     listErrorConfirm.length == 1 &&
+                //     listErrorOTP.length == 1)
+                Navigator.pushNamed(context, CompleteProfilePage.routeName);
               }
             },
           ),

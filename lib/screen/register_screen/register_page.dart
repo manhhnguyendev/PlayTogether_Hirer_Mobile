@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/screen/register_screen/register_form.dart';
 
 class RegisterPage extends StatelessWidget {
-  static String routeName = "sign_up";
+  static String routeName = "register";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

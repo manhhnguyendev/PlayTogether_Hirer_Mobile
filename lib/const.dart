@@ -9,7 +9,7 @@ const String emailNullError = "- Vui lòng nhập email !";
 const String invalidEmailError = "- Email nhập không đúng định dạng !";
 const String passNullError = "- Vui lòng nhập mật khẩu !";
 const String invalidPassError =
-    "- Mật khẩu từ 8-30 kí tự, \ncó ít nhất 1 số 1 chữ hoa, 1 kí tự đặc biệt !";
+    "- Mật khẩu từ 8-30 kí tự, có ít nhất 1 số 1 chữ hoa, 1 kí tự đặc biệt!";
 const String matchPassError = "- Mật khẩu xác nhận không trùng khớp !";
 const String confirmNullError = "- Mật khẩu xác nhận lại chưa được nhập !";
 const String namelNullError = "- Vui lòng nhập họ tên !";
