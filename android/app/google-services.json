@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "133283159554",
+    "project_id": "play-together-flutter",
+    "storage_bucket": "play-together-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133283159554:android:7aaabb965f515db168511b",
+        "android_client_info": {
+          "package_name": "com.example.playtogether_hirer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133283159554-97p5pg5ves0kq1n2s69ia5c3bdglv5ck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.playtogether_hirer",
+            "certificate_hash": "bb99585d8f1322b97f4b441b85ca3d898f2bf0c1"
+          }
+        },
+        {
+          "client_id": "133283159554-0843ujodg49smiebea6mug0kc9e2u262.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeyzUljs6JQzQf3l64Dyd5vrvNfrCzQsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133283159554-0843ujodg49smiebea6mug0kc9e2u262.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
