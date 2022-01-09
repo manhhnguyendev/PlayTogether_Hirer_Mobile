@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/screen/signupscreen/signup_form.dart';
+import 'package:playtogether_hirer/screen/register_screen/register_form.dart';
 
-class SignupPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   static String routeName = "sign_up";
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SignupPage extends StatelessWidget {
                       image: AssetImage("assets/images/playtogetherlogo.png"),
                       fit: BoxFit.cover)),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: SignUpForm(),
             ),
