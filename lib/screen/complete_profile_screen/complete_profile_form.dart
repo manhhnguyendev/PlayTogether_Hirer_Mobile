@@ -102,7 +102,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                     ),
                     Expanded(
                         flex: 1,
-                        child: FormError(listError: listErrorFirstName)),
+                        child: FormError(listError: listErrorLastName)),
                   ],
                 ),
                 //FormError(listError: listErrorBirthday),
