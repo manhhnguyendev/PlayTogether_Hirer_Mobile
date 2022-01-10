@@ -115,6 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
             listErrorEmail.contains(invalidEmailError)) {
           removeError(listErrorEmail, error: invalidEmailError);
         }
+        //alo
         return;
       },
       validator: (value) {
