@@ -140,10 +140,10 @@ class _RegisterFormState extends State<RegisterForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }
@@ -184,10 +184,10 @@ class _RegisterFormState extends State<RegisterForm> {
             gapPadding: 10,
           ),
           focusedErrorBorder: const OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
           errorBorder: (const OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-          errorStyle: const TextStyle(height: 0, color: Colors.red),
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+          errorStyle: const TextStyle(height: 0, color: Colors.black),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     passObsecure = !passObsecure;
@@ -238,10 +238,10 @@ class _RegisterFormState extends State<RegisterForm> {
             gapPadding: 10,
           ),
           focusedErrorBorder: const OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
           errorBorder: (const OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-          errorStyle: const TextStyle(height: 0, color: Colors.red),
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+          errorStyle: const TextStyle(height: 0, color: Colors.black),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     confirmObsecure = !confirmObsecure;
@@ -289,10 +289,10 @@ class _RegisterFormState extends State<RegisterForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }

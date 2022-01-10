@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
 import 'package:playtogether_hirer/shared_component/login_error_form.dart';
@@ -18,7 +20,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String lastName = "";
   late DateTime rawBirthday;
   ValueNotifier<String> notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
-  //String birthday = "";
+  bool gender = true;
   final tec = TextEditingController();
   String province = "";
   final List listErrorFirstName = [''];
@@ -103,28 +105,69 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                         child: FormError(listError: listErrorFirstName)),
                   ],
                 ),
-                buildBirthdayArea(),
                 //FormError(listError: listErrorBirthday),
-                MainButton(
-                    text: "HOÀN TẤT",
-                    onpress: () {
-                      if (_formKey.currentState == null) {
-                        print("_formKey.currentState is null!");
-                      } else if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        if (listErrorFirstName.length ==
-                                1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
-                            listErrorLastName.length == 1 &&
-                            listErrorProvince.length == 1 &&
-                            listErrorBirthday.length == 1) {
-                          print("ALL VALID");
-                        }
-                      }
-                    }),
-                GoBackButton(text: "QUAY LẠI ", onpress: () {}),
+                SizedBox(
+                  height: 5,
+                ),
+                buildBirthdayField(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          //
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              "Giới tính:",
+                              style: TextStyle(
+                                  color: Color.fromARGB(220, 100, 100, 100),
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          //padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: buildGenderSelection()),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
-          )
+          ),
+          MainButton(
+              text: "HOÀN TẤT",
+              onpress: () {
+                if (_formKey.currentState == null) {
+                  print("_formKey.currentState is null!");
+                } else if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  if (listErrorFirstName.length ==
+                          1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                      listErrorLastName.length == 1 &&
+                      listErrorProvince.length == 1 &&
+                      listErrorBirthday.length == 1) {
+                    print("ALL VALID");
+                  }
+                }
+              }),
+          GoBackButton(text: "QUAY LẠI ", onpress: () {}),
         ],
       ),
     );
@@ -141,7 +184,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             listErrorFirstName.contains(firstNameNullError)) {
           removeError(listErrorFirstName, error: firstNameNullError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) &&
@@ -154,7 +197,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       decoration: const InputDecoration(
         counterText: "",
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
         labelText: "Họ",
         hintText: "Nhập vào họ",
         enabledBorder: OutlineInputBorder(
@@ -164,10 +207,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }
@@ -182,7 +225,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty && listErrorLastName.contains(lastNameNullError)) {
           removeError(listErrorLastName, error: lastNameNullError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) &&
@@ -195,7 +238,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       decoration: const InputDecoration(
         counterText: "",
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
         labelText: "Tên",
         hintText: "Nhập vào tên",
         enabledBorder: OutlineInputBorder(
@@ -205,16 +248,17 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }
 
   Container buildBirthdayArea() {
     return Container(
+      alignment: Alignment.center,
       child: Row(
         children: [
           Expanded(
@@ -228,7 +272,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               decoration: const InputDecoration(
                 counterText: "",
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 labelText: "Sinh nhật của bạn",
                 //hintText: "Chọn ngày sinh nhật",
                 enabledBorder: OutlineInputBorder(
@@ -238,10 +282,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   gapPadding: 10,
                 ),
                 focusedErrorBorder: OutlineInputBorder(
-                    gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+                    gapPadding: 10,
+                    borderSide: BorderSide(color: Colors.black)),
                 errorBorder: (OutlineInputBorder(
-                    gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-                errorStyle: TextStyle(height: 0, color: Colors.red),
+                    gapPadding: 10,
+                    borderSide: BorderSide(color: Colors.black))),
+                errorStyle: TextStyle(height: 0, color: Colors.black),
               ),
             ),
           ),
@@ -267,7 +313,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(DateTime.now().year - 100),
-                          lastDate: DateTime(DateTime.now().year + 1),
+                          lastDate: DateTime(DateTime.now().year),
                         ).then((date) {
                           rawBirthday = date!;
                           convertBirthday();
@@ -283,6 +329,96 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               ))
         ],
       ),
+    );
+  }
+
+  Container buildGenderSelection() {
+    return Container(
+      alignment: Alignment.center,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Radio(
+                    value: true,
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = true;
+                        print(gender);
+                        print("nam state");
+                      });
+                    }),
+                Text("Nam")
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Radio(
+                    value: false,
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = false;
+                        print(gender);
+                        print("nữ state");
+                      });
+                    }),
+                Text("Nữ"),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  TextFormField buildBirthdayField() {
+    return TextFormField(
+      controller: tec,
+      //readOnly: true,
+      onSaved: (newValue) {
+        notiBirth.value = newValue!;
+      },
+      decoration: InputDecoration(
+        counterText: "",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        labelText: "Sinh nhật của bạn",
+        //hintText: "Chọn ngày sinh nhật",
+        enabledBorder: OutlineInputBorder(
+          gapPadding: 10,
+        ),
+        focusedBorder: OutlineInputBorder(
+          gapPadding: 10,
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
+        errorBorder: (OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
+        suffixIcon: Icon(
+          Icons.calendar_today,
+        ),
+      ),
+      onTap: () async {
+        FocusScope.of(context).requestFocus(FocusNode());
+        await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(DateTime.now().year - 100),
+          lastDate: DateTime(DateTime.now().year + 1),
+        ).then((date) {
+          rawBirthday = date!;
+          convertBirthday();
+          print(notiBirth.value + "at button");
+        });
+      },
     );
   }
 }

@@ -29,6 +29,22 @@ class CompleteProfilePage extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            child: GestureDetector(
+              onTap: () {},
+              child: const Text(
+                'Bạn đã có tài khoản? Quay lại đăng nhập',
+                style: TextStyle(
+                  fontSize: 15,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 40,
+          ),
         ],
       )),
     );

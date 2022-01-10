@@ -101,10 +101,10 @@ class _LoginFormState extends State<LoginForm> {
             gapPadding: 10,
           ),
           errorBorder: const OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
           focusedErrorBorder: const OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
-          errorStyle: const TextStyle(height: 0, color: Colors.red),
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
+          errorStyle: const TextStyle(height: 0, color: Colors.black),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     obsecure = !obsecure;
@@ -155,10 +155,10 @@ class _LoginFormState extends State<LoginForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }

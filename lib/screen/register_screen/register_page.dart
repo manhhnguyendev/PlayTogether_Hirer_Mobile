@@ -31,8 +31,7 @@ class RegisterPage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, RegisterPage.routeName),
+                onTap: () {},
                 child: const Text(
                   'Bạn đã có tài khoản? Quay lại đăng nhập',
                   style: TextStyle(
