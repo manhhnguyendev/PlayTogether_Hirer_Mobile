@@ -23,7 +23,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String province = "";
   final List listErrorFirstName = [''];
   final List listErrorLastName = [''];
-  final List listErrorBirthday = [''];
+  final List listErrorBirthday = ['', birthdayNullError];
   final List listErrorProvince = [''];
 
   void addError(List inputListError, {String? error}) {
@@ -56,6 +56,17 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
     notiBirth.addListener(() {
       tec.text = notiBirth.value;
+      print(tec.text + "...initState()");
+      if (tec.text != "Ngày sinh của bạn" &&
+          tec.text.isNotEmpty &&
+          listErrorBirthday.contains(birthdayNullError)) {
+        //removeError(listErrorLastName, error: birthdayNullError);
+        listErrorBirthday.remove(birthdayNullError);
+      } else if ((tec.text == "Ngày sinh của bạn" || tec.text.isEmpty) &&
+          !listErrorBirthday.contains(birthdayNullError)) {
+        listErrorBirthday.add(birthdayNullError);
+      }
+      print(listErrorBirthday.toString() + "..initState()");
     });
     super.initState();
   }
@@ -93,7 +104,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   ],
                 ),
                 buildBirthdayArea(),
-                FormError(listError: listErrorBirthday),
+                //FormError(listError: listErrorBirthday),
                 MainButton(
                     text: "HOÀN TẤT",
                     onpress: () {
@@ -210,25 +221,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             flex: 2,
             child: TextFormField(
               controller: tec,
-              //initialValue: tec.text,
               readOnly: true,
               onSaved: (newValue) {
                 notiBirth.value = newValue!;
-              },
-              onChanged: (value) {
-                if (value.isNotEmpty &&
-                    listErrorBirthday.contains(birthdayNullError)) {
-                  removeError(listErrorLastName, error: birthdayNullError);
-                }
-                return null;
-              },
-              validator: (value) {
-                if ((value!.isEmpty) &&
-                    !listErrorBirthday.contains(birthdayNullError)) {
-                  addError(listErrorBirthday, error: birthdayNullError);
-                  return "";
-                }
-                return null;
               },
               decoration: const InputDecoration(
                 counterText: "",
@@ -253,7 +248,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           Expanded(
               flex: 1,
               child: SizedBox(
-                //margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                 height: 55,
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -268,7 +262,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                         255,
                         1,
                       ),
-                      //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                       onPressed: () {
                         showDatePicker(
                           context: context,
