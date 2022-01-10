@@ -11,8 +11,6 @@ class LoginGoogle extends StatefulWidget {
 }
 
 class _GoogleButtonState extends State<LoginGoogle> {
-  String _message = 'You are not sign in';
-
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   late FirebaseAuth _auth;
@@ -22,29 +20,13 @@ class _GoogleButtonState extends State<LoginGoogle> {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
     final User user = (await _auth.signInWithCredential(credential)).user;
-    print("Email: " + user.email);
-    print("Name: " + user.displayName);
     print("Id Token: " + googleAuth.idToken);
-    setState(() {
-      _message = "You are sign in";
-    });
     return user;
-  }
-
-  Future _checkLogin() async {
-    final User user = _auth.currentUser;
-    if (user != null) {
-      setState(() {
-        _message = "You are sign in";
-      });
-    }
   }
 
   @override
@@ -58,13 +40,11 @@ class _GoogleButtonState extends State<LoginGoogle> {
             future: _initialization,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                return Text('Something went wrong');
+                return const Text('Something went wrong');
               }
-
               if (snapshot.connectionState == ConnectionState.done) {
                 _auth = FirebaseAuth.instance;
                 _googleSignIn = GoogleSignIn();
-                _checkLogin();
                 return Container(
                   alignment: Alignment.center,
                   margin: const EdgeInsets.symmetric(vertical: 1),
