@@ -25,7 +25,7 @@ class RegisterPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: RegisterForm(),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -42,7 +42,7 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

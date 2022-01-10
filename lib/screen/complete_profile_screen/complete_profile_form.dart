@@ -84,7 +84,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                 Row(
                   children: [
                     Expanded(flex: 1, child: buildFirstNameField()),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Expanded(flex: 1, child: buildLastNameField()),
@@ -95,7 +95,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                     Expanded(
                         flex: 1,
                         child: FormError(listError: listErrorFirstName)),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Expanded(
