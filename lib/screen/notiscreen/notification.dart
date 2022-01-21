@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/sharedcomponent/bottom_bar.dart';
+import 'package:playtogether_hirer/shared_component/bottom_bar.dart';
 
 class Notifications extends StatefulWidget {
   Notifications({Key? key}) : super(key: key);

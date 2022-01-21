@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/model/player_model.dart';
+import 'package:playtogether_hirer/screen/homescreen/app_bar_home.dart';
 import 'package:playtogether_hirer/screen/homescreen/player_card.dart';
-import 'package:playtogether_hirer/sharedcomponent/bottom_bar.dart';
-import 'package:playtogether_hirer/sharedcomponent/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/shared_component/bottom_bar.dart';
+import 'package:playtogether_hirer/shared_component/my_color.dart' as my_colors;
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -17,10 +18,13 @@ class _HomeState extends State<Home> {
     Size size = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          //   title:
-        ),
+        appBar:
+            // AppBar(
+            //   toolbarHeight: 0,
+            // ),
+
+            Appbar(height: 70, titles: "Home", onPressedSearch: () {}),
+
         // Body app
         body: SingleChildScrollView(
           padding: EdgeInsets.all(10),
@@ -33,10 +37,10 @@ class _HomeState extends State<Home> {
                   child: Row(children: [
                     // avatar
                     CircleAvatar(
-                      //foregroundColor: Colors.white,
+                      backgroundColor: Colors.white,
                       radius: 30,
                       backgroundImage: AssetImage(
-                        "lib/assets/images/playtogetherlogo.png",
+                        "assets/images/playtogetherlogo.png",
                       ),
                     ),
                     SizedBox(
@@ -99,23 +103,22 @@ class _HomeState extends State<Home> {
                   height: 10,
                 ),
                 SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      PlayerCard(player: demoPlayer[0]),
-                      PlayerCard(player: demoPlayer[1]),
-                      PlayerCard(player: demoPlayer[2]),
-                      // ...List.generate(
-                      //   demoPlayer.length,
-                      //   (index) {
-                      //       if (demoPlayer[index].isHired)
-                      //     PlayerCard(player: demoPlayer[index]);
-                      //     return SizedBox
-                      //           .shrink(); // here by default width and height is 0
-                      //   },
-                      // ),
-                      SizedBox(width: 10),
+                  child: new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: SizedBox(
+                          height: 200.0,
+                          child: new ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: demoPlayer.length,
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              return new PlayerCard(player: demoPlayer[index]);
+                            },
+                          ),
+                        ),
+                      ),
                     ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
                 ),
                 SizedBox(
@@ -149,21 +152,120 @@ class _HomeState extends State<Home> {
                   height: 10,
                 ),
                 SingleChildScrollView(
-                  physics: ScrollPhysics(),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: demoPlayer.length,
-                          itemBuilder: (context, index) {
-                            return PlayerCard(player: demoPlayer[index]);
-                          },
+                  child: new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: SizedBox(
+                          height: 200.0,
+                          child: new ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: demoPlayer.length,
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              return new PlayerCard(player: demoPlayer[index]);
+                            },
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20 / 375 * size.width),
+                  child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Đề xuất cho bạn",
+                          style: TextStyle(
+                            fontSize: 18 / 400 * size.width,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print(demoPlayer.length);
+                          },
+                          child: Icon(Icons.arrow_circle_down_outlined),
+                        ),
+                      ]),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SingleChildScrollView(
+                  child: new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: SizedBox(
+                          height: 200.0,
+                          child: new ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: demoPlayer.length,
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              return new PlayerCard(player: demoPlayer[index]);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20 / 375 * size.width),
+                  child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Có thể bạn sẽ thích",
+                          style: TextStyle(
+                            fontSize: 18 / 400 * size.width,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print(demoPlayer.length);
+                          },
+                          child: Icon(Icons.arrow_circle_down_outlined),
+                        ),
+                      ]),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SingleChildScrollView(
+                  child: new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: SizedBox(
+                          height: 200.0,
+                          child: new ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: demoPlayer.length,
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              return new PlayerCard(player: demoPlayer[index]);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
                 ),
                 SizedBox(
