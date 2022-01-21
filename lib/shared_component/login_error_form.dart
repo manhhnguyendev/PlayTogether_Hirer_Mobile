@@ -10,6 +10,7 @@ class FormError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Size size = MediaQuery.of(context).size;
     return Column(
       children: List.generate(
         listError.length,
@@ -18,14 +19,14 @@ class FormError extends StatelessWidget {
     );
   }
 
-  Row formErrorText(String error) {
-    return Row(
-      children: [
-        Text(
-          error,
-          style: TextStyle(color: Colors.red),
-        )
-      ],
+  Container formErrorText(String error) {
+    return Container(
+      height: 17,
+      alignment: Alignment.centerLeft,
+      child: (Text(
+        error,
+        style: const TextStyle(color: Colors.red),
+      )),
     );
   }
 }
