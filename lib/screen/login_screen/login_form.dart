@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
+import 'package:playtogether_hirer/model/hirer_model.dart';
 import 'package:playtogether_hirer/shared_component/login_error_form.dart';
 import 'package:playtogether_hirer/shared_component/main_button.dart';
 
@@ -16,6 +17,8 @@ class _LoginFormState extends State<LoginForm> {
   String password = "";
   final List listError = [''];
   bool obsecure = true;
+
+  late HirerModel _hirerModel;
 
   void addError({String? error}) {
     if (!listError.contains(error)) {
@@ -71,7 +74,6 @@ class _LoginFormState extends State<LoginForm> {
 
   TextFormField buildPasswordField() {
     return TextFormField(
-      //keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         password = value;
@@ -80,7 +82,6 @@ class _LoginFormState extends State<LoginForm> {
         }
         return;
       },
-
       validator: (value) {
         if ((value!.isEmpty) && !listError.contains(passNullError)) {
           addError(error: passNullError);
@@ -88,7 +89,6 @@ class _LoginFormState extends State<LoginForm> {
         }
         return null;
       },
-
       decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -114,7 +114,6 @@ class _LoginFormState extends State<LoginForm> {
                 size: 25,
                 color: Colors.black,
               ))),
-
       obscureText: obsecure,
     );
   }

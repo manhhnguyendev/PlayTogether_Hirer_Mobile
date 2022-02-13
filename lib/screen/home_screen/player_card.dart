@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/model/player_model.dart';
-import 'package:playtogether_hirer/shared_component/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 
 class PlayerCard extends StatefulWidget {
   final double width, aspectRetio;

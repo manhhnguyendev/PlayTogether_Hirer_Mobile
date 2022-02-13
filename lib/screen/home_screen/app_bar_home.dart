@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/shared_component/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
