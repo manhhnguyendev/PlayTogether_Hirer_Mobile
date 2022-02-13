@@ -3,7 +3,7 @@ import 'package:playtogether_hirer/model/player_model.dart';
 import 'package:playtogether_hirer/screen/home_screen/app_bar_home.dart';
 import 'package:playtogether_hirer/screen/home_screen/player_card.dart';
 import 'package:playtogether_hirer/shared_component/bottom_bar.dart';
-import 'package:playtogether_hirer/shared_component/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

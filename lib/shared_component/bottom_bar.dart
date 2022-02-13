@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/helper/helper.dart' as helper;
-import 'package:playtogether_hirer/shared_component/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 import 'package:playtogether_hirer/screen/history_screen/history_page.dart';
 import 'package:playtogether_hirer/screen/home_screen/home_page.dart';
 import 'package:playtogether_hirer/screen/notification_screen/notification_page.dart';

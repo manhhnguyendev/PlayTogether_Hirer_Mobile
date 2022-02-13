@@ -6,10 +6,12 @@ void pushInto(BuildContext context, Widget wg, bool isRightToLeft) {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             MaterialApp(home: wg),
-        transitionDuration: Duration(milliseconds: 0),
+        transitionDuration: const Duration(milliseconds: 0),
         transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {
-          var begin = (isRightToLeft == true) ? Offset(50, 0) : Offset(-50, 0);
+          var begin = (isRightToLeft == true)
+              ? const Offset(50, 0)
+              : const Offset(-50, 0);
           var end = Offset.zero;
           var curve = Curves.easeInOut;
           var tween =
@@ -19,10 +21,6 @@ void pushInto(BuildContext context, Widget wg, bool isRightToLeft) {
             position: animation.drive(tween),
             child: child,
           );
-          // return FadeTransition(
-          //   opacity: animation,
-          //   child: child,
-          // ); runApp(MaterialApp(home: Register(currentIndex: 0)));
         },
       ),
       (route) => false);
