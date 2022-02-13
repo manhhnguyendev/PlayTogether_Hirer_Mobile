@@ -4,13 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playtogether_hirer/screen/login_screen/login_page.dart';
 
-class HomePage extends StatefulWidget {
-  static String routeName = "home_page";
+class LogoutGooglePage extends StatefulWidget {
+  static String routeName = "logout_google";
   @override
   _HomeStateState createState() => _HomeStateState();
 }
 
-class _HomeStateState extends State<HomePage> {
+class _HomeStateState extends State<LogoutGooglePage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   late FirebaseAuth _auth;

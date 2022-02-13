@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/screen/login_screen/forgot_and_new_account_area.dart';
 import 'package:playtogether_hirer/screen/login_screen/login_form.dart';
 import 'dart:core';
-import 'package:playtogether_hirer/screen/login_screen/login_google.dart';
+import 'package:playtogether_hirer/screen/login_screen/login_google_page.dart';
 
 class LoginPage extends StatelessWidget {
-  static String routeName = "/login";
+  static String routeName = "login";
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class LoginPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: LoginGoogle(),
+            child: LoginGooglePage(),
           ),
         ]),
       ),

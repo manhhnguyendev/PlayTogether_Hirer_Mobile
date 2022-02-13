@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/helper/helper.dart' as helper;
 import 'package:playtogether_hirer/shared_component/my_color.dart' as my_colors;
-import 'package:playtogether_hirer/screen/historyscreen/history.dart';
-import 'package:playtogether_hirer/screen/homescreen/home.dart';
-import 'package:playtogether_hirer/screen/notiscreen/notification.dart';
-import 'package:playtogether_hirer/screen/personalscreen/personal.dart';
+import 'package:playtogether_hirer/screen/history_screen/history_page.dart';
+import 'package:playtogether_hirer/screen/home_screen/home_page.dart';
+import 'package:playtogether_hirer/screen/notification_screen/notification_page.dart';
+import 'package:playtogether_hirer/screen/personal_screen/personal_page.dart';
 
 class BottomBar extends StatefulWidget {
   final int bottomBarIndex;
@@ -53,7 +53,7 @@ class _BottomBarState extends State<BottomBar> {
           if (index == 0) {
             helper.pushInto(
               context,
-              Home(),
+              HomePage(),
               isRightToLeft,
             );
           } else if (index == 1) {
@@ -61,20 +61,20 @@ class _BottomBarState extends State<BottomBar> {
 
             helper.pushInto(
               context,
-              History(),
+              HistoryPage(),
               isRightToLeft,
             );
             //===================================================================================
           } else if (index == 2) {
             helper.pushInto(
               context,
-              Notifications(),
+              NotificationsPage(),
               isRightToLeft,
             );
           } else if (index == 3) {
             helper.pushInto(
               context,
-              Personal(),
+              PersonalPage(),
               isRightToLeft,
             );
           }
