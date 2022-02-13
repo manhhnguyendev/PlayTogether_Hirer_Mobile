@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/shared_component/bottom_bar.dart';
 
-class History extends StatefulWidget {
-  History({Key? key}) : super(key: key);
+class PersonalPage extends StatefulWidget {
+  PersonalPage({Key? key}) : super(key: key);
 
   @override
-  _HistoryState createState() => _HistoryState();
+  _PersonalPageState createState() => _PersonalPageState();
 }
 
-class _HistoryState extends State<History> {
+class _PersonalPageState extends State<PersonalPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         bottomNavigationBar: BottomBar(
-          bottomBarIndex: 1,
+          bottomBarIndex: 3,
         ),
       ),
     );

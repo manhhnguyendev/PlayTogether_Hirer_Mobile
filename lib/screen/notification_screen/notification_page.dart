@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/shared_component/bottom_bar.dart';
 
-class Notifications extends StatefulWidget {
-  Notifications({Key? key}) : super(key: key);
+class NotificationsPage extends StatefulWidget {
+  NotificationsPage({Key? key}) : super(key: key);
 
   @override
-  _NotificationsState createState() => _NotificationsState();
+  _NotificationsPageState createState() => _NotificationsPageState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

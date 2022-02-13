@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:playtogether_hirer/screen/home_screen/home_screen.dart';
+import 'package:playtogether_hirer/screen/log_out_google_screen/log_out_google.dart';
 import 'package:playtogether_hirer/helper/helper.dart' as helper;
-import 'package:playtogether_hirer/screen/homescreen/home.dart';
+import 'package:playtogether_hirer/screen/home_screen/home_page.dart';
 
-class LoginGoogle extends StatefulWidget {
+class LoginGooglePage extends StatefulWidget {
   static String routeName = "login_google";
   @override
   _GoogleButtonState createState() => _GoogleButtonState();
 }
 
-class _GoogleButtonState extends State<LoginGoogle> {
+class _GoogleButtonState extends State<LoginGooglePage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   late FirebaseAuth _auth;
@@ -25,7 +25,6 @@ class _GoogleButtonState extends State<LoginGoogle> {
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
-
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
@@ -76,7 +75,7 @@ class _GoogleButtonState extends State<LoginGoogle> {
                               print("ko null ne em oi");
                               helper.pushInto(
                                 context,
-                                Home(),
+                                HomePage(),
                                 true,
                               );
                             } else
