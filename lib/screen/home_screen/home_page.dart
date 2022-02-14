@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playtogether_hirer/model/hirer_model.dart';
 import 'package:playtogether_hirer/model/player_model.dart';
 import 'package:playtogether_hirer/screen/home_screen/app_bar_home.dart';
 import 'package:playtogether_hirer/screen/home_screen/player_card.dart';
@@ -6,7 +7,8 @@ import 'package:playtogether_hirer/shared_component/bottom_bar.dart';
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  final HirerModel hirerModel;
+  HomePage({Key? key, required this.hirerModel}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -68,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 10,
                 ),
+                Text("Hello" + widget.hirerModel.lastname),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 20 / 375 * size.width),
@@ -267,6 +270,7 @@ class _HomePageState extends State<HomePage> {
               ]),
         ),
         bottomNavigationBar: BottomBar(
+          hirerModel: widget.hirerModel,
           bottomBarIndex: 0,
         ),
       ),

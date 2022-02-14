@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/helper/helper.dart' as helper;
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/model/hirer_model.dart';
 import 'package:playtogether_hirer/screen/history_screen/history_page.dart';
 import 'package:playtogether_hirer/screen/home_screen/home_page.dart';
 import 'package:playtogether_hirer/screen/notification_screen/notification_page.dart';
@@ -8,7 +9,9 @@ import 'package:playtogether_hirer/screen/personal_screen/personal_page.dart';
 
 class BottomBar extends StatefulWidget {
   final int bottomBarIndex;
-  BottomBar({Key? key, required this.bottomBarIndex}) : super(key: key);
+  final HirerModel hirerModel;
+  BottomBar({Key? key, required this.bottomBarIndex, required this.hirerModel})
+      : super(key: key);
 
   @override
   _BottomBarState createState() => _BottomBarState();
@@ -53,7 +56,9 @@ class _BottomBarState extends State<BottomBar> {
           if (index == 0) {
             helper.pushInto(
               context,
-              HomePage(),
+              HomePage(
+                hirerModel: widget.hirerModel,
+              ),
               isRightToLeft,
             );
           } else if (index == 1) {
@@ -61,20 +66,26 @@ class _BottomBarState extends State<BottomBar> {
 
             helper.pushInto(
               context,
-              HistoryPage(),
+              HistoryPage(
+                hirerModel: widget.hirerModel,
+              ),
               isRightToLeft,
             );
             //===================================================================================
           } else if (index == 2) {
             helper.pushInto(
               context,
-              NotificationsPage(),
+              NotificationsPage(
+                hirerModel: widget.hirerModel,
+              ),
               isRightToLeft,
             );
           } else if (index == 3) {
             helper.pushInto(
               context,
-              PersonalPage(),
+              PersonalPage(
+                hirerModel: widget.hirerModel,
+              ),
               isRightToLeft,
             );
           }
