@@ -70,11 +70,11 @@ class _GoogleButtonState extends State<LoginGooglePage> {
                           setState(() {
                             if (result != null) {
                               print("ko null ne em oi");
-                              helper.pushInto(
-                                context,
-                                HomePage(),
-                                true,
-                              );
+                              // helper.pushInto(
+                              //   context,
+                              //   HomePage(),
+                              //   true,
+                              // );
                             } else
                               print("null roi ne");
                           });

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:playtogether_hirer/constants/api_url.dart' as apiUrl;
 import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
+import 'package:playtogether_hirer/model/login_model.dart';
 
 class HirerService {
   Future<List<HirerModel>> getHirer(dynamic token) async {
@@ -25,12 +26,12 @@ class HirerService {
     return result;
   }
 
-  Future<HirerModel> getHirerById(String id, dynamic token) async {
+  Future<HirerModel> getHirerProfile(dynamic token) async {
     Response response;
     late HirerModel result;
     try {
       response = await get(
-        Uri.parse('${apiUrl.hirer}/$id'),
+        Uri.parse('${apiUrl.hirer}/profile'),
         headers: configJson.headerAuth(token),
       );
 
@@ -43,18 +44,17 @@ class HirerService {
     return result;
   }
 
-  Future<HirerModel> login(String email, String password) async {
+  Future<LoginModel> login(String email, String password) async {
     Response response;
-    late HirerModel result;
+    LoginModel result;
     try {
-      response = await get(
+      response = await post(
         Uri.parse('${apiUrl.account}/login?email=$email&password=$password'),
-        headers: configJson.header(),
+        // headers: configJson.header(),
       );
-
-      if (response.statusCode == 200) {
-        result = HirerModel.fromJson(json.decode(response.body));
-      }
+      // if (response.statusCode == 200) {}
+      print(json.decode(response.body));
+      result = LoginModel.fromJson(json.decode(response.body));
     } on Exception {
       rethrow;
     }
