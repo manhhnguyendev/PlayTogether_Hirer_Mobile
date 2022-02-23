@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playtogether_hirer/screen/forgot_password_screen/forgot_password_page.dart';
 import 'package:playtogether_hirer/screen/register_screen/register_page.dart';
 
 class ForgotPassAndCreateNewAccArea extends StatelessWidget {
@@ -25,7 +26,8 @@ class ForgotPassAndCreateNewAccArea extends StatelessWidget {
       Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () =>
+              Navigator.pushNamed(context, ForgotPasswordPage.routeName),
           child: const Text(
             'Quên mật khẩu?',
             style: TextStyle(

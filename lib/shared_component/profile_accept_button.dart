@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
 
-class DeclineButton extends StatelessWidget {
+class AcceptProfileButton extends StatelessWidget {
   final String text;
   final Function() onpress;
-  final double height, width;
-
-  const DeclineButton({
+  const AcceptProfileButton({
     Key? key,
     required this.text,
     required this.onpress,
-    required this.height,
-    required this.width,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 1),
-      width: width,
-      height: height,
+      width: 300,
+      height: 50,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          //side: BorderSide(color: Colors.black, width: 0.1),
+          side: BorderSide(color: Colors.black, width: 1),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: FlatButton(
-              color: const Color(0xff70717B),
+              color: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
               onPressed: onpress,
-              child: Text(
+              child:
+                  // Text(text,
+                  //      style: TextStyle(color: Color.fromRGBO(50, 4, 68, 0.9), fontSize: 16.0),)
+                  Text(
                 text,
-                style: const TextStyle(color: Colors.white, fontSize: 18.0),
+                style:
+                    const TextStyle(color: Color(0xff320444), fontSize: 17.0),
               )),
         ),
       ),

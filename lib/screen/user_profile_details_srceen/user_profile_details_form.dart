@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
 import 'package:playtogether_hirer/shared_component/login_error_form.dart';
-import 'package:playtogether_hirer/shared_component/main_button.dart';
-import 'package:playtogether_hirer/shared_component/main_goback_button.dart';
+import 'package:playtogether_hirer/shared_component/profile_accept_button.dart';
 
-class CompleteProfileForm extends StatefulWidget {
-  const CompleteProfileForm({Key? key}) : super(key: key);
+class UserProfileDetailForm extends StatefulWidget {
+  const UserProfileDetailForm({Key? key}) : super(key: key);
 
   @override
-  _CompleteProfileFormState createState() => _CompleteProfileFormState();
+  _UserProfileDetailFormState createState() => _UserProfileDetailFormState();
 }
 
-class _CompleteProfileFormState extends State<CompleteProfileForm> {
+class _UserProfileDetailFormState extends State<UserProfileDetailForm> {
+  String profileLink = "assets/images/defaultprofile.png";
+
   final _formKey = GlobalKey<FormState>();
   final initialDate = DateTime.now();
   String firstName = "";
@@ -146,13 +147,47 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    loadData();
     return Form(
       key: _formKey,
       child: Column(
         children: [
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: 150,
+              width: 150,
+              child: Stack(
+                clipBehavior: Clip.none,
+                fit: StackFit.expand,
+                children: [
+                  SizedBox(
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(profileLink),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 0,
+                      right: -25,
+                      child: RawMaterialButton(
+                        onPressed: () {},
+                        elevation: 2.0,
+                        fillColor: Color(0xFFF5F6F9),
+                        child: Icon(
+                          Icons.add_a_photo_outlined,
+                          color: Colors.black,
+                        ),
+                        padding: EdgeInsets.all(8.0),
+                        shape: CircleBorder(),
+                      )),
+                ],
+              ),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
             child: Column(
               children: <Widget>[
                 Row(
@@ -246,7 +281,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               ],
             ),
           ),
-          MainButton(
+          SizedBox(
+            height: 15,
+          ),
+          AcceptProfileButton(
               text: "HOÀN TẤT",
               onpress: () {
                 if (_formKey.currentState == null) {
@@ -262,7 +300,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   }
                 }
               }),
-          GoBackButton(text: "QUAY LẠI ", onpress: () {}),
         ],
       ),
     );

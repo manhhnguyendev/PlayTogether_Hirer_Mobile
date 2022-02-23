@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playtogether_hirer/const.dart';
 import 'package:playtogether_hirer/screen/complete_profile_screen/complete_profile_page.dart';
+import 'package:playtogether_hirer/shared_component/confirm_otp_button.dart';
 import 'package:playtogether_hirer/shared_component/login_error_form.dart';
 import 'package:playtogether_hirer/shared_component/main_button.dart';
 import 'package:playtogether_hirer/shared_component/otp_button.dart';
@@ -52,7 +53,12 @@ class _RegisterFormState extends State<RegisterForm> {
             padding: const EdgeInsets.all(5.0),
             child: Column(
               children: [
-                buildEmailField(),
+                Row(
+                  children: [
+                    Expanded(flex: 2, child: buildEmailField()),
+                    const Expanded(flex: 1, child: OTPButton()),
+                  ],
+                ),
                 FormError(listError: listErrorEmail),
                 const SizedBox(
                   height: 10,
@@ -60,7 +66,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 Row(
                   children: [
                     Expanded(flex: 2, child: buildOTPField()),
-                    const Expanded(flex: 1, child: OTPButton()),
+                    const Expanded(flex: 1, child: ConfirmOTPButton()),
                   ],
                 ),
                 FormError(listError: listErrorOTP),
@@ -109,7 +115,6 @@ class _RegisterFormState extends State<RegisterForm> {
       onChanged: (value) {
         email = value;
         if (value.isNotEmpty && listErrorEmail.contains(emailNullError)) {
-          //removeError(inputListError: listErrorEmail, error: emailNullError);
           removeError(listErrorEmail, error: emailNullError);
         } else if (emailValidatorRegExp.hasMatch(value) &&
             listErrorEmail.contains(invalidEmailError)) {
@@ -257,8 +262,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildOTPField() {
     return TextFormField(
-      onSaved: (newValue) => otpCode = newValue!,
       maxLength: 6,
+      onSaved: (newValue) => otpCode = newValue!,
       onChanged: (value) {
         otpCode = value;
         if ((value.length == 6) && listErrorOTP.contains(otpNullError)) {
