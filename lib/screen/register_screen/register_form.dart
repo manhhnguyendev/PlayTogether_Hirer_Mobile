@@ -60,7 +60,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 Row(
                   children: [
                     Expanded(flex: 2, child: buildOTPField()),
-                    Expanded(flex: 1, child: OTPButton()),
+                    const Expanded(flex: 1, child: OTPButton()),
                   ],
                 ),
                 FormError(listError: listErrorOTP),
@@ -87,12 +87,13 @@ class _RegisterFormState extends State<RegisterForm> {
                 print("_formKey.currentState is null!");
               } else if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                // if (listErrorEmail.length ==
-                //         1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
-                //     listErrorPass.length == 1 &&
-                //     listErrorConfirm.length == 1 &&
-                //     listErrorOTP.length == 1)
-                Navigator.pushNamed(context, CompleteProfilePage.routeName);
+                if (listErrorEmail.length ==
+                        1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                    listErrorPass.length == 1 &&
+                    listErrorConfirm.length == 1 &&
+                    listErrorOTP.length == 1) {
+                  Navigator.pushNamed(context, CompleteProfilePage.routeName);
+                }
               }
             },
           ),
@@ -114,7 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
             listErrorEmail.contains(invalidEmailError)) {
           removeError(listErrorEmail, error: invalidEmailError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) && !listErrorEmail.contains(emailNullError)) {
@@ -139,10 +140,10 @@ class _RegisterFormState extends State<RegisterForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }
@@ -158,7 +159,7 @@ class _RegisterFormState extends State<RegisterForm> {
             listErrorPass.contains(invalidPassError)) {
           removeError(listErrorPass, error: invalidPassError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) && !listErrorPass.contains(passNullError)) {
@@ -182,11 +183,11 @@ class _RegisterFormState extends State<RegisterForm> {
           focusedBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
-          focusedErrorBorder: OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
-          errorBorder: (OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-          errorStyle: TextStyle(height: 0, color: Colors.red),
+          focusedErrorBorder: const OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
+          errorBorder: (const OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+          errorStyle: const TextStyle(height: 0, color: Colors.black),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     passObsecure = !passObsecure;
@@ -211,7 +212,7 @@ class _RegisterFormState extends State<RegisterForm> {
           removeError(listErrorConfirm, error: matchPassError);
           print(password + "-remove");
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) && !listErrorConfirm.contains(confirmNullError)) {
@@ -236,11 +237,11 @@ class _RegisterFormState extends State<RegisterForm> {
           focusedBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
-          focusedErrorBorder: OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
-          errorBorder: (OutlineInputBorder(
-              gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-          errorStyle: TextStyle(height: 0, color: Colors.red),
+          focusedErrorBorder: const OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
+          errorBorder: (const OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+          errorStyle: const TextStyle(height: 0, color: Colors.black),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     confirmObsecure = !confirmObsecure;
@@ -263,7 +264,7 @@ class _RegisterFormState extends State<RegisterForm> {
         if ((value.length == 6) && listErrorOTP.contains(otpNullError)) {
           removeError(listErrorOTP, error: otpNullError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty || value.length < 6) &&
@@ -288,10 +289,10 @@ class _RegisterFormState extends State<RegisterForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }

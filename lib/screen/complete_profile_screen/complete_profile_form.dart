@@ -18,13 +18,89 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String lastName = "";
   late DateTime rawBirthday;
   ValueNotifier<String> notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
-  //String birthday = "";
+  bool gender = true;
   final tec = TextEditingController();
-  String province = "";
+  List<DropdownMenuItem<String>> listDrop = [];
+  List<String> drop = [
+    'An Giang',
+    'Bà Rịa - Vũng Tàu',
+    'Bắc Giang',
+    'Bắc Kạn',
+    'Bạc Liêu',
+    'Bắc Ninh',
+    'Bến Tre',
+    'Bình Định',
+    'Bình Dương',
+    'Bình Phước',
+    'Bình Thuận',
+    'Cà Mau',
+    'Cần Thơ',
+    'Cao Bằng',
+    'Đà Nẵng',
+    'Đắk Lắk',
+    'Đắk Nông',
+    'Điện Biên',
+    'Đồng Nai',
+    'Đồng Tháp',
+    'Gia Lai',
+    'Hà Giang',
+    'Hà Nam',
+    'Hà Nội',
+    'Hà Tĩnh',
+    'Hải Dương',
+    'Hải Phòng',
+    'Hậu Giang',
+    'Hòa Bình',
+    'Hưng Yên',
+    'Khánh Hòa',
+    'Kiên Giang',
+    'Kon Tum',
+    'Lai Châu',
+    'Lâm Đồng',
+    'Lạng Sơn',
+    'Lào Cai',
+    'Long An',
+    'Nam Định',
+    'Nghệ An',
+    'Ninh Bình',
+    'Ninh Thuận',
+    'Phú Thọ',
+    'Phú Yên',
+    'Quảng Bình',
+    'Quảng Nam',
+    'Quảng Ngãi',
+    'Quảng Ninh',
+    'Quảng Trị',
+    'Sóc Trăng',
+    'Sơn La',
+    'Tây Ninh',
+    'Thái Bình',
+    'Thái Nguyên',
+    'Thanh Hóa',
+    'Thừa Thiên Huế',
+    'Tiền Giang',
+    'TP Hồ Chí Minh',
+    'Trà Vinh',
+    'Tuyên Quang',
+    'Vĩnh Long',
+    'Vĩnh Phúc',
+    'Yên Bái',
+  ];
+  String? province;
   final List listErrorFirstName = [''];
   final List listErrorLastName = [''];
-  final List listErrorBirthday = [''];
+  final List listErrorBirthday = ['', birthdayNullError];
   final List listErrorProvince = [''];
+
+  void loadData() {
+    listDrop = [];
+    listDrop = drop
+        .map((val) => DropdownMenuItem<String>(
+              child: Text(val),
+              value: val,
+            ))
+        .toList();
+  }
 
   void addError(List inputListError, {String? error}) {
     if (!inputListError.contains(error)) {
@@ -56,12 +132,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
     notiBirth.addListener(() {
       tec.text = notiBirth.value;
+      if (tec.text != "Ngày sinh của bạn" &&
+          tec.text.isNotEmpty &&
+          listErrorBirthday.contains(birthdayNullError)) {
+        listErrorBirthday.remove(birthdayNullError);
+      } else if ((tec.text == "Ngày sinh của bạn" || tec.text.isEmpty) &&
+          !listErrorBirthday.contains(birthdayNullError)) {
+        listErrorBirthday.add(birthdayNullError);
+      }
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    loadData();
     return Form(
       key: _formKey,
       child: Column(
@@ -73,7 +158,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                 Row(
                   children: [
                     Expanded(flex: 1, child: buildFirstNameField()),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Expanded(flex: 1, child: buildLastNameField()),
@@ -84,36 +169,100 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                     Expanded(
                         flex: 1,
                         child: FormError(listError: listErrorFirstName)),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Expanded(
                         flex: 1,
-                        child: FormError(listError: listErrorFirstName)),
+                        child: FormError(listError: listErrorLastName)),
                   ],
                 ),
-                buildBirthdayArea(),
-                FormError(listError: listErrorBirthday),
-                MainButton(
-                    text: "HOÀN TẤT",
-                    onpress: () {
-                      if (_formKey.currentState == null) {
-                        print("_formKey.currentState is null!");
-                      } else if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        if (listErrorFirstName.length ==
-                                1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
-                            listErrorLastName.length == 1 &&
-                            listErrorProvince.length == 1 &&
-                            listErrorBirthday.length == 1) {
-                          print("ALL VALID");
-                        }
-                      }
-                    }),
-                GoBackButton(text: "QUAY LẠI ", onpress: () {}),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: buildProvinceField(),
+                          flex: 7,
+                        ),
+                        const Expanded(
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Color.fromARGB(220, 100, 100, 100),
+                          ),
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                buildBirthdayField(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              "Giới tính:",
+                              style: TextStyle(
+                                  color: Color.fromARGB(220, 100, 100, 100),
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                              alignment: Alignment.centerLeft,
+                              child: buildGenderSelection()),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
-          )
+          ),
+          MainButton(
+              text: "HOÀN TẤT",
+              onpress: () {
+                if (_formKey.currentState == null) {
+                  print("_formKey.currentState is null!");
+                } else if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  if (listErrorFirstName.length ==
+                          1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                      listErrorLastName.length == 1 &&
+                      listErrorProvince.length == 1 &&
+                      listErrorBirthday.length == 1) {
+                    print("ALL VALID");
+                  }
+                }
+              }),
+          GoBackButton(text: "QUAY LẠI ", onpress: () {}),
         ],
       ),
     );
@@ -130,7 +279,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             listErrorFirstName.contains(firstNameNullError)) {
           removeError(listErrorFirstName, error: firstNameNullError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) &&
@@ -143,7 +292,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       decoration: const InputDecoration(
         counterText: "",
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
         labelText: "Họ",
         hintText: "Nhập vào họ",
         enabledBorder: OutlineInputBorder(
@@ -153,10 +302,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }
@@ -171,7 +320,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty && listErrorLastName.contains(lastNameNullError)) {
           removeError(listErrorLastName, error: lastNameNullError);
         }
-        return null;
+        return;
       },
       validator: (value) {
         if ((value!.isEmpty) &&
@@ -184,7 +333,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       decoration: const InputDecoration(
         counterText: "",
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
         labelText: "Tên",
         hintText: "Nhập vào tên",
         enabledBorder: OutlineInputBorder(
@@ -194,101 +343,118 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           gapPadding: 10,
         ),
         focusedErrorBorder: OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
         errorBorder: (OutlineInputBorder(
-            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-        errorStyle: TextStyle(height: 0, color: Colors.red),
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
       ),
     );
   }
 
-  Container buildBirthdayArea() {
+  Container buildGenderSelection() {
     return Container(
+      alignment: Alignment.center,
       child: Row(
         children: [
           Expanded(
-            flex: 2,
-            child: TextFormField(
-              controller: tec,
-              //initialValue: tec.text,
-              readOnly: true,
-              onSaved: (newValue) {
-                notiBirth.value = newValue!;
-              },
-              onChanged: (value) {
-                if (value.isNotEmpty &&
-                    listErrorBirthday.contains(birthdayNullError)) {
-                  removeError(listErrorLastName, error: birthdayNullError);
-                }
-                return null;
-              },
-              validator: (value) {
-                if ((value!.isEmpty) &&
-                    !listErrorBirthday.contains(birthdayNullError)) {
-                  addError(listErrorBirthday, error: birthdayNullError);
-                  return "";
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                counterText: "",
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                labelText: "Sinh nhật của bạn",
-                //hintText: "Chọn ngày sinh nhật",
-                enabledBorder: OutlineInputBorder(
-                  gapPadding: 10,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  gapPadding: 10,
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                    gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
-                errorBorder: (OutlineInputBorder(
-                    gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
-                errorStyle: TextStyle(height: 0, color: Colors.red),
-              ),
+            flex: 1,
+            child: Row(
+              children: [
+                Radio(
+                    value: true,
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = true;
+                        print("Nam");
+                      });
+                    }),
+                const Text("Nam")
+              ],
             ),
           ),
           Expanded(
-              flex: 1,
-              child: SizedBox(
-                //margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                height: 55,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: FlatButton(
-                      color: const Color.fromRGBO(
-                        137,
-                        128,
-                        255,
-                        1,
-                      ),
-                      //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                      onPressed: () {
-                        showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(DateTime.now().year - 100),
-                          lastDate: DateTime(DateTime.now().year + 1),
-                        ).then((date) {
-                          rawBirthday = date!;
-                          convertBirthday();
-                          print(notiBirth.value + "at button");
-                        });
-                      },
-                      child: const Text("Chọn ngày",
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 13.5)),
-                    ),
-                  ),
-                ),
-              ))
+            flex: 1,
+            child: Row(
+              children: [
+                Radio(
+                    value: false,
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = false;
+                        print("Nữ");
+                      });
+                    }),
+                const Text("Nữ"),
+              ],
+            ),
+          )
         ],
+      ),
+    );
+  }
+
+  TextFormField buildBirthdayField() {
+    return TextFormField(
+      controller: tec,
+      onSaved: (newValue) {
+        notiBirth.value = newValue!;
+      },
+      decoration: const InputDecoration(
+        counterText: "",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        labelText: "Sinh nhật của bạn",
+        enabledBorder: OutlineInputBorder(
+          gapPadding: 10,
+        ),
+        focusedBorder: OutlineInputBorder(
+          gapPadding: 10,
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black)),
+        errorBorder: (OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.black))),
+        errorStyle: TextStyle(height: 0, color: Colors.black),
+        suffixIcon: Icon(
+          Icons.calendar_today,
+        ),
+      ),
+      onTap: () async {
+        FocusScope.of(context).requestFocus(FocusNode());
+        await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(DateTime.now().year - 100),
+          lastDate: DateTime(DateTime.now().year + 1),
+        ).then((date) {
+          rawBirthday = date!;
+          convertBirthday();
+          print(notiBirth.value);
+        });
+      },
+    );
+  }
+
+  Container buildProvinceField() {
+    return Container(
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          isExpanded: true,
+          value: province,
+          items: listDrop,
+          hint: const Text('Thành phố sinh'),
+          iconSize: 0.0,
+          elevation: 16,
+          onChanged: (value) {
+            province = value as String;
+            setState(() {
+              province = value;
+              print(province);
+            });
+          },
+        ),
       ),
     );
   }

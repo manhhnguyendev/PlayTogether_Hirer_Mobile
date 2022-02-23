@@ -25,14 +25,13 @@ class RegisterPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: RegisterForm(),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, RegisterPage.routeName),
+                onTap: () {},
                 child: const Text(
                   'Bạn đã có tài khoản? Quay lại đăng nhập',
                   style: TextStyle(
@@ -42,7 +41,7 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

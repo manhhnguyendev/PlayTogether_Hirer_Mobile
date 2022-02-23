@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/screen/login_screen/forgot_and_new_account_area.dart';
 import 'package:playtogether_hirer/screen/login_screen/login_form.dart';
 import 'dart:core';
-import 'package:playtogether_hirer/shared_component/google_login_button.dart';
+import 'package:playtogether_hirer/screen/login_screen/login_google_page.dart';
 
 class LoginPage extends StatelessWidget {
-  static String routeName = "/login";
+  static String routeName = "login";
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,10 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             height: size.height / 50,
           ),
-          GoogleButton(),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: LoginGooglePage(),
+          ),
         ]),
       ),
     );
