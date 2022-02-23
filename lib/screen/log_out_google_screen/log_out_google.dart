@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:playtogether_hirer/screen/home_screen/home_page.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:playtogether_hirer/screen/login_screen/login_page.dart';
 
-class HomePage extends StatefulWidget {
-  static String routeName = "home_page";
+class LogoutGooglePage extends StatefulWidget {
+  static String routeName = "logout_google";
   @override
   _HomeStateState createState() => _HomeStateState();
 }

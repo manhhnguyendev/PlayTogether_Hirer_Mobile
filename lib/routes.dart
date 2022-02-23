@@ -1,11 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:playtogether_hirer/screen/change_password_screen/change_password_page.dart';
 import 'package:playtogether_hirer/screen/complete_profile_screen/complete_profile_page.dart';
+
 import 'package:playtogether_hirer/screen/forgot_password_screen/forgot_password_page.dart';
 import 'package:playtogether_hirer/screen/hiring_negotiating_sreen/hiring_negotiating_page.dart';
 import 'package:playtogether_hirer/screen/hiring_stage_screen/hiring_stage_page.dart';
-import 'package:playtogether_hirer/screen/home_screen/home_screen.dart';
-import 'package:playtogether_hirer/screen/login_screen/login_google.dart';
+//import 'package:playtogether_hirer/screen/home_screen/home_screen.dart';
+//import 'package:playtogether_hirer/screen/login_screen/login_google.dart';
 import 'package:playtogether_hirer/screen/login_screen/login_page.dart';
 import 'package:playtogether_hirer/screen/player_profile_screen/player_profile_page.dart';
 import 'package:playtogether_hirer/screen/rating_comment_player_screen/rating_comment_player_page.dart';
@@ -19,8 +20,9 @@ final Map<String, WidgetBuilder> routes = {
   LoginPage.routeName: (context) => LoginPage(),
   RegisterPage.routeName: (context) => RegisterPage(),
   CompleteProfilePage.routeName: (context) => CompleteProfilePage(),
-  LoginGoogle.routeName: (context) => LoginGoogle(),
-  HomePage.routeName: (context) => HomePage(),
+
+  //LoginGoogle.routeName: (context) => LoginGoogle(),
+  //HomePage.routeName: (context) => HomePage(),
   ForgotPasswordPage.routeName: (context) => ForgotPasswordPage(),
   ChangePasswordPage.routeName: (context) => ChangePasswordPage(),
   UserCategoriesPage.routeName: (context) => UserCategoriesPage(),

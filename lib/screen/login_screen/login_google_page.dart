@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:playtogether_hirer/screen/home_screen/home_screen.dart';
+import 'package:playtogether_hirer/helper/helper.dart' as helper;
+import 'package:playtogether_hirer/screen/home_screen/home_page.dart';
 
-class LoginGoogle extends StatefulWidget {
+class LoginGooglePage extends StatefulWidget {
   static String routeName = "login_google";
   @override
   _GoogleButtonState createState() => _GoogleButtonState();
 }
 
-class _GoogleButtonState extends State<LoginGoogle> {
+class _GoogleButtonState extends State<LoginGooglePage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   late FirebaseAuth _auth;
@@ -32,6 +33,7 @@ class _GoogleButtonState extends State<LoginGoogle> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    bool login = false;
     return Container(
       height: 70,
       alignment: Alignment.center,
@@ -61,8 +63,21 @@ class _GoogleButtonState extends State<LoginGoogle> {
                         color: const Color.fromRGBO(219, 68, 50, 1),
                         //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                         onPressed: () {
-                          _handleSignIn();
-                          Navigator.pushNamed(context, HomePage.routeName);
+                          // dynamic result = await _handleSignIn();
+                          dynamic result = _handleSignIn();
+                          print("qua buoc 1");
+                          print(result);
+                          setState(() {
+                            if (result != null) {
+                              print("ko null ne em oi");
+                              // helper.pushInto(
+                              //   context,
+                              //   HomePage(),
+                              //   true,
+                              // );
+                            } else
+                              print("null roi ne");
+                          });
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
