@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/const.dart';
-import 'package:playtogether_hirer/sharedcomponent/loginerrorform.dart';
-import 'package:playtogether_hirer/sharedcomponent/mainbutton1.dart';
+import 'package:playtogether_hirer/shared_component/login_error_form.dart';
+import 'package:playtogether_hirer/shared_component/main_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -18,21 +18,24 @@ class _LoginFormState extends State<LoginForm> {
   bool obsecure = true;
 
   void addError({String? error}) {
-    if (!listError.contains(error))
+    if (!listError.contains(error)) {
       setState(() {
         listError.add(error);
       });
+    }
   }
 
   void removeError({String? error}) {
-    if (listError.contains(error))
+    if (listError.contains(error)) {
       setState(() {
         listError.remove(error);
       });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Form(
       key: _formKey,
       child: Column(
@@ -42,8 +45,8 @@ class _LoginFormState extends State<LoginForm> {
             child: Column(
               children: [
                 buildEmailField(),
-                SizedBox(
-                  height: 12,
+                const SizedBox(
+                  height: 15,
                 ),
                 buildPasswordField(),
                 FormError(listError: listError),
@@ -58,6 +61,7 @@ class _LoginFormState extends State<LoginForm> {
                 print("_formKey.currentState is null!");
               } else if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                if (listError.length == 1) {}
               }
             },
           ),
@@ -71,44 +75,42 @@ class _LoginFormState extends State<LoginForm> {
       //keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
+        password = value;
         if (value.isNotEmpty && listError.contains(passNullError)) {
           removeError(error: passNullError);
-        } else if (passwordValidatorRegExp.hasMatch(value) &&
-            listError.contains(invalidPassError)) {
-          removeError(error: invalidPassError);
         }
-        return null;
+        return;
       },
 
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(passNullError)) {
+        if ((value!.isEmpty) && !listError.contains(passNullError)) {
           addError(error: passNullError);
-          return "";
-        } else if (!passwordValidatorRegExp.hasMatch(value) &&
-            !listError.contains(invalidPassError)) {
-          addError(error: invalidPassError);
           return "";
         }
         return null;
       },
 
       decoration: InputDecoration(
-          //floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           labelText: "Mật khẩu",
           hintText: "Nhập vào mật khẩu",
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             gapPadding: 10,
           ),
+          errorBorder: OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+          focusedErrorBorder: OutlineInputBorder(
+              gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+          errorStyle: TextStyle(height: 0, color: Colors.red),
           suffixIcon: IconButton(
               onPressed: () => setState(() {
                     obsecure = !obsecure;
                   }),
-              icon: Icon(
+              icon: const Icon(
                 Icons.remove_red_eye,
                 size: 25,
                 color: Colors.black,
@@ -123,17 +125,17 @@ class _LoginFormState extends State<LoginForm> {
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
+        email = value;
         if (value.isNotEmpty && listError.contains(emailNullError)) {
           removeError(error: emailNullError);
         } else if (emailValidatorRegExp.hasMatch(value) &&
             listError.contains(invalidEmailError)) {
           removeError(error: invalidEmailError);
         }
-        return null;
+        return;
       },
       validator: (value) {
-        if ((value!.isEmpty || value == null) &&
-            !listError.contains(emailNullError)) {
+        if ((value!.isEmpty) && !listError.contains(emailNullError)) {
           addError(error: emailNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value) &&
@@ -142,8 +144,8 @@ class _LoginFormState extends State<LoginForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
-        //floatingLabelBehavior: FloatingLabelBehavior.always,
+      decoration: const InputDecoration(
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         labelText: "Email",
         hintText: "Nhập vào email",
@@ -153,6 +155,11 @@ class _LoginFormState extends State<LoginForm> {
         focusedBorder: OutlineInputBorder(
           gapPadding: 10,
         ),
+        focusedErrorBorder: OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.red)),
+        errorBorder: (OutlineInputBorder(
+            gapPadding: 10, borderSide: BorderSide(color: Colors.red))),
+        errorStyle: TextStyle(height: 0, color: Colors.red),
       ),
     );
   }

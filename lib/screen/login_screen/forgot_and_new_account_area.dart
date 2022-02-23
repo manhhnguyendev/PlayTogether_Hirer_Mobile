@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/screen/signupscreen/signup_page.dart';
+import 'package:playtogether_hirer/screen/register_screen/register_page.dart';
 
 class ForgotPassAndCreateNewAccArea extends StatelessWidget {
   const ForgotPassAndCreateNewAccArea({
@@ -10,10 +10,10 @@ class ForgotPassAndCreateNewAccArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(context, SignupPage.routeName),
-          child: Text(
+          onTap: () => Navigator.pushNamed(context, RegisterPage.routeName),
+          child: const Text(
             'Tạo tài khoản?',
             style: TextStyle(
               fontSize: 15,
@@ -23,10 +23,10 @@ class ForgotPassAndCreateNewAccArea extends StatelessWidget {
         ),
       ),
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
         child: GestureDetector(
           onTap: () {},
-          child: Text(
+          child: const Text(
             'Quên mật khẩu?',
             style: TextStyle(
               fontSize: 15,
