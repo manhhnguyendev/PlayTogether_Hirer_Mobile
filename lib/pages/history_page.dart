@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/model/hirer_model.dart';
+import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 
 class HistoryPage extends StatefulWidget {

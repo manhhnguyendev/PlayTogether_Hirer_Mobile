@@ -1,10 +1,10 @@
-import 'package:playtogether_hirer/model/hirer_model.dart';
+import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:playtogether_hirer/constants/api_url.dart' as apiUrl;
 import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
-import 'package:playtogether_hirer/model/login_model.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 
 class HirerService {
   Future<HirerModel> getHirerProfile(dynamic token) async {
