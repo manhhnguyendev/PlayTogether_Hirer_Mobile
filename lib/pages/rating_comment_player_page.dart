@@ -14,6 +14,7 @@ class RatingAndCommentPage extends StatefulWidget {
 class _RatingAndCommentPageState extends State<RatingAndCommentPage> {
   String profileLink = "assets/images/defaultprofile.png";
   String comment = "";
+  double ratingStar = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +62,7 @@ class _RatingAndCommentPageState extends State<RatingAndCommentPage> {
             height: 25,
           ),
           RatingBar.builder(
-            initialRating: 0,
+            initialRating: ratingStar,
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: false,
@@ -72,7 +73,7 @@ class _RatingAndCommentPageState extends State<RatingAndCommentPage> {
               color: Colors.amber,
             ),
             onRatingUpdate: (rating) {
-              print(rating);
+              ratingStar = rating;
             },
           ),
           Padding(
