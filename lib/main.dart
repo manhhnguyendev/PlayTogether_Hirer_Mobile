@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/pages/login_page.dart';
-import 'package:playtogether_hirer/helper/routes.dart';
+import 'package:playtogether_hirer/helpers/routes.dart';
 
 void main() {
   runApp(MyApp());

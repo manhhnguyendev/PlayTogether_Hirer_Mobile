@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/model/player_model.dart';
+import 'package:playtogether_hirer/models/player_model.dart';
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 
 class PlayerCard extends StatefulWidget {

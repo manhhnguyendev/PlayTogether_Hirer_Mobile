@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:playtogether_hirer/helper/helper.dart' as helper;
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 import 'package:playtogether_hirer/pages/home_page.dart';
 
 class LoginGooglePage extends StatefulWidget {

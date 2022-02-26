@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/helper/helper.dart' as helper;
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
-import 'package:playtogether_hirer/model/hirer_model.dart';
+import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/pages/history_page.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
 import 'package:playtogether_hirer/pages/notification_page.dart';

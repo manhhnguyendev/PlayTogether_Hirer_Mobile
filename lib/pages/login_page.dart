@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/pages/login_google_page.dart';
 import 'package:playtogether_hirer/pages/register_page.dart';
 import 'package:playtogether_hirer/constants/const.dart';
-import 'package:playtogether_hirer/model/hirer_model.dart';
-import 'package:playtogether_hirer/model/login_model.dart';
+import 'package:playtogether_hirer/models/hirer_model.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 import 'package:playtogether_hirer/pages/forgot_password_page.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
 import 'package:playtogether_hirer/services/hirer_service.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
-import 'package:playtogether_hirer/helper/helper.dart' as helper;
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class LoginPage extends StatefulWidget {
   static String routeName = "login";
