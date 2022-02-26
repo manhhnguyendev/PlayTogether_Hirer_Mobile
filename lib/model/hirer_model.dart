@@ -1,14 +1,14 @@
 class HirerModel {
-  late String email;
-  late String password;
-  late String confirmPassword;
-  late String firstname;
-  late String lastname;
-  late String city;
-  late String dateOfBirth;
-  late bool gender;
-  late bool confirmEmail;
-  late dynamic token;
+  String email;
+  String password;
+  String confirmPassword;
+  String firstname;
+  String lastname;
+  String city;
+  String dateOfBirth;
+  bool gender;
+  bool confirmEmail;
+  dynamic token;
 
   HirerModel({
     required this.email,

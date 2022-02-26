@@ -7,31 +7,12 @@ import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
 import 'package:playtogether_hirer/model/login_model.dart';
 
 class HirerService {
-  Future<List<HirerModel>> getHirer(dynamic token) async {
-    Response response;
-    late List<HirerModel> result;
-    try {
-      response = response = await get(
-        Uri.parse(apiUrl.hirerProfile),
-        headers: configJson.headerAuth(token),
-      );
-
-      if (response.statusCode == 200) {
-        List<dynamic> body = jsonDecode(response.body);
-        result = body.map((dynamic item) => HirerModel.fromJson(item)).toList();
-      }
-    } on Exception {
-      rethrow;
-    }
-    return result;
-  }
-
   Future<HirerModel> getHirerProfile(dynamic token) async {
     Response response;
     late HirerModel result;
     try {
       response = await get(
-        Uri.parse('${apiUrl.hirer}/profile'),
+        Uri.parse('${apiUrl.hirers}/profile'),
         headers: configJson.headerAuth(token),
       );
 
@@ -49,7 +30,7 @@ class HirerService {
     LoginModel result;
     try {
       response = await post(
-        Uri.parse('${apiUrl.account}/login?email=$email&password=$password'),
+        Uri.parse('${apiUrl.accounts}/login?email=$email&password=$password'),
         // headers: configJson.header(),
       );
       // if (response.statusCode == 200) {}
