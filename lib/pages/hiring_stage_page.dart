@@ -13,9 +13,51 @@ class HiringPage extends StatefulWidget {
   _HiringPageState createState() => _HiringPageState();
 }
 
-class _HiringPageState extends State<HiringPage> {
+class _HiringPageState extends State<HiringPage> with TickerProviderStateMixin {
   String profileLink = "assets/images/defaultprofile.png";
   String profileLink2 = "assets/images/defaultprofile.png";
+
+  late AnimationController controller;
+  int hour = 2;
+  double progress = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: hour * 60 * 60),
+    );
+
+    controller.addListener(() {
+      if (controller.isAnimating) {
+        setState(() {
+          progress = controller.value;
+        });
+      } else {
+        setState(() {
+          progress = 1.0;
+          isPlaying = false;
+        });
+      }
+    });
+    controller.reverse(from: controller.value == 0 ? 1.0 : controller.value);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  String get countText {
+    Duration count = controller.duration! * controller.value;
+    return controller.isDismissed
+        ? '${controller.duration!.inHours}:${(controller.duration!.inMinutes % 60).toString().padLeft(2, '0')}:${(controller.duration!.inSeconds % 60).toString().padLeft(2, '0')}'
+        : '${count.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:${(count.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+  bool isPlaying = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +81,7 @@ class _HiringPageState extends State<HiringPage> {
               alignment: Alignment.center,
               child: Text(
                 'Đang thuê',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.red),
               ),
             ),
             Padding(
@@ -67,10 +109,6 @@ class _HiringPageState extends State<HiringPage> {
                   Spacer(),
                   Row(
                     children: [
-                      // Text(
-                      //   ' •  •  ',
-                      //   style: TextStyle(fontSize: 15, color: Colors.grey),
-                      // ),
                       Container(
                         alignment: Alignment.topCenter,
                         width: 60,
@@ -82,10 +120,6 @@ class _HiringPageState extends State<HiringPage> {
                                     "assets/images/logo2-notext.png"),
                                 fit: BoxFit.cover)),
                       ),
-                      // Text(
-                      //   ' •  • ',
-                      //   style: TextStyle(fontSize: 15, color: Colors.grey),
-                      // ),
                     ],
                   ),
                   Spacer(),
@@ -102,7 +136,7 @@ class _HiringPageState extends State<HiringPage> {
                         height: 5,
                       ),
                       Text(
-                        "Player name2",
+                        "Hirer Name",
                         style: TextStyle(fontSize: 18),
                       ),
                     ],
@@ -187,7 +221,18 @@ class _HiringPageState extends State<HiringPage> {
                   SizedBox(
                     height: 5,
                   ),
-                  CountdownWidget(),
+                  Container(
+                    child: AnimatedBuilder(
+                      animation: controller,
+                      builder: (context, child) => Text(
+                        countText,
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
