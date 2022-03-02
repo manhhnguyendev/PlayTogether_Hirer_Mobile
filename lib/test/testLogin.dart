@@ -12,19 +12,19 @@ import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
-class LoginPage extends StatefulWidget {
+class TestLogin extends StatefulWidget {
   static String routeName = "login";
-  const LoginPage({Key? key}) : super(key: key);
+  const TestLogin({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _TestLoginState createState() => _TestLoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _TestLoginState extends State<TestLogin> {
   final _formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
-  Login login = new Login(email: "", password: "");
+  late Login login;
   final List listError = [''];
   bool obsecure = true;
 
