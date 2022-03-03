@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
+import 'package:playtogether_hirer/models/notification_model.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
+import 'package:playtogether_hirer/widgets/notification_card.dart';
 
 class NotificationsPage extends StatefulWidget {
-  final HirerModel hirerModel;
-  const NotificationsPage({Key? key, required this.hirerModel})
-      : super(key: key);
+  static String routeName = 'NotificationPage';
+  // final HirerModel hirerModel;
+  // const NotificationsPage({Key? key, required this.hirerModel})
+  //     : super(key: key);
+
+  const NotificationsPage({Key? key}) : super(key: key);
 
   @override
   _NotificationsPageState createState() => _NotificationsPageState();
@@ -14,13 +19,47 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        bottomNavigationBar: BottomBar(
-          hirerModel: widget.hirerModel,
-          bottomBarIndex: 2,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: AppBar(
+          bottomOpacity: 0,
+          toolbarOpacity: 1,
+          toolbarHeight: 65,
+          backgroundColor: Colors.white,
+          elevation: 1,
+          leading: CircleAvatar(
+            radius: 27,
+            backgroundColor: Colors.white,
+            backgroundImage: AssetImage("assets/images/logo2-notext.png"),
+          ),
+          centerTitle: true,
+          title: Text(
+            'Thông báo',
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.normal),
+          ),
         ),
       ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            children: List.generate(demoListNotifications.length,
+                (index) => buildListNotification(demoListNotifications[index])),
+          ),
+        ),
+      ),
+      // bottomNavigationBar: BottomBar(
+      //   hirerModel: widget.hirerModel,
+      //   bottomBarIndex: 2,
+      // ),
     );
   }
+
+  Widget buildListNotification(NotificationModel model) =>
+      NotificationCard(notificationModel: model);
 }
