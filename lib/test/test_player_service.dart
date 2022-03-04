@@ -1,14 +1,13 @@
-import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart';
-import 'package:playtogether_hirer/constants/api_url.dart' as apiUrl;
-import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
-import 'package:playtogether_hirer/models/player_model.dart';
 
-class PlayerService {
-  Future<List<PlayerModel>?> getModels(dynamic token) async {
+import 'package:http/http.dart';
+import 'package:playtogether_hirer/test/test_player_model.dart';
+import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
+
+class TestService {
+  Future<List<TestModel>?> getModels(dynamic token) async {
     Response response;
-    List<PlayerModel>? result;
+    List<TestModel>? result;
 
     try {
       response = response = await get(
@@ -19,8 +18,7 @@ class PlayerService {
 
       if (response.statusCode == 200) {
         List<dynamic> body = jsonDecode(response.body);
-        result =
-            body.map((dynamic item) => PlayerModel.fromJson(item)).toList();
+        result = body.map((dynamic item) => TestModel.fromJson(item)).toList();
       }
     } catch (Exception) {
       print(Exception);

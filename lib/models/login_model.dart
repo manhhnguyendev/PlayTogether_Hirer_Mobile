@@ -1,6 +1,7 @@
 class LoginModel {
-  final String message;
-  final DateTime expireDate;
+  String message;
+
+  String expireDate;
 
   LoginModel({
     required this.message,
@@ -9,7 +10,7 @@ class LoginModel {
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         message: json['message'] as String,
-        expireDate: json['expireDate'] as DateTime,
+        expireDate: json['expireDate'] as String,
       );
 
   Map<String, dynamic> toJson() => {

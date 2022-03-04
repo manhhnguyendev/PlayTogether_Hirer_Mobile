@@ -4,10 +4,11 @@ import 'package:playtogether_hirer/pages/user_profile_details_page.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 
 class UserAccountPage extends StatefulWidget {
-  // final HirerModel hirerModel;
+  final HirerModel hirerModel;
 
   const UserAccountPage({
     Key? key,
+    required this.hirerModel,
   }) : super(key: key);
   static String routeName = 'UserAccount';
   @override
@@ -19,10 +20,10 @@ class _UserAccountPageState extends State<UserAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: BottomBar(
-      //   hirerModel: widget.hirerModel,
-      //   bottomBarIndex: 3,
-      // ),
+      bottomNavigationBar: BottomBar(
+        hirerModel: widget.hirerModel,
+        bottomBarIndex: 3,
+      ),
       body: Column(
         children: [
           SizedBox(

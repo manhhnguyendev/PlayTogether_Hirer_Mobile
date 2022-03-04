@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:playtogether_hirer/constants/api_url.dart' as apiUrl;
 import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
+import 'package:playtogether_hirer/models/login.dart';
 import 'package:playtogether_hirer/models/login_model.dart';
 
 class HirerService {
@@ -25,17 +26,19 @@ class HirerService {
     return result;
   }
 
-  Future<LoginModel> login(String email, String password) async {
+  Future<LoginModel?> login(Login login) async {
     Response response;
-    LoginModel result;
+    LoginModel? result;
     try {
       response = await post(
-        Uri.parse('${apiUrl.accounts}/login?email=$email&password=$password'),
-        // headers: configJson.header(),
+        Uri.parse(
+            'https://play-together.azurewebsites.net/api/play-together/v1/accounts/login'),
+        headers: configJson.header(),
+        body: jsonEncode(login.toJson()),
       );
-      // if (response.statusCode == 200) {}
-      print(json.decode(response.body));
-      result = LoginModel.fromJson(json.decode(response.body));
+      if (response.statusCode == 200) {
+        result = LoginModel.fromJson(json.decode(response.body));
+      }
     } on Exception {
       rethrow;
     }

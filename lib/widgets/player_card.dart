@@ -38,7 +38,7 @@ class _PlayerCardState extends State<PlayerCard> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: ClipRRect(
-                        child: Image.asset(widget.playerModel.images[0],
+                        child: Image.asset("assets/images/HangDam.png",
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -47,7 +47,7 @@ class _PlayerCardState extends State<PlayerCard> {
                   Row(
                     children: [
                       Text(
-                        widget.playerModel.name,
+                        widget.playerModel.firstname,
                         style: TextStyle(color: Colors.black),
                       ),
                     ],
@@ -55,13 +55,7 @@ class _PlayerCardState extends State<PlayerCard> {
                   Row(
                     children: [
                       Text(
-                        widget.playerModel.abilities[0],
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                      Text(", ",
-                          style: TextStyle(fontSize: 12, color: Colors.grey)),
-                      Text(
-                        widget.playerModel.abilities[1],
+                        widget.playerModel.lastname,
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],

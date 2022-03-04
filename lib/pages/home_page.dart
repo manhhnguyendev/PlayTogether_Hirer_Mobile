@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/player_model.dart';
+import 'package:playtogether_hirer/services/player_service.dart';
 import 'package:playtogether_hirer/widgets/app_bar_home.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 import 'package:playtogether_hirer/widgets/player_card.dart';
 
 class HomePage extends StatefulWidget {
-  //final HirerModel hirerModel;
-  static String routeName = 'HomePage';
+  final HirerModel hirerModel;
+  //static String routeName = 'HomePage';
   const HomePage({
     Key? key,
+    required this.hirerModel,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final PlayerService playerApi = new PlayerService();
+
+  List<PlayerModel>? playerList;
+
+  Future loadList() {
+    if (playerList == null) {
+      playerList = [];
+    }
+    Future<List<PlayerModel>?> futureCases = playerApi.getModels(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImVmZTA3YTliLTc5MTEtNGIzMS04NzMxLTU5Yjk1NGU3MzRlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZWZlMDdhOWItNzkxMS00YjMxLTg3MzEtNTliOTU0ZTczNGVkIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Im1hbmhuZ3V5ZW5AZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoibWFuaG5ndXllbkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJoaXJlciIsImV4cCI6MTY0NjI5MDYzOX0.O63bqw6RzBygAsYwgX1EFKpb7uXZS2JHP1ofM3CoZss");
+    futureCases.then((_playerList) {
+      if (this.mounted) {
+        setState(() {
+          this.playerList = _playerList;
+          // print(userList.length);
+        });
+      }
+    });
+    return futureCases;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -237,6 +260,7 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
             ]),
+
       ),
       // bottomNavigationBar: BottomBar(
       //   hirerModel: widget.hirerModel,
