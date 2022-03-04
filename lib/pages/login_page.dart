@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:playtogether_hirer/models/login.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 import 'package:playtogether_hirer/pages/login_google_page.dart';
 import 'package:playtogether_hirer/pages/register_page.dart';
 import 'package:playtogether_hirer/constants/const.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
-import 'package:playtogether_hirer/models/login_model.dart';
+import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/forgot_password_page.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
 import 'package:playtogether_hirer/services/hirer_service.dart';
+import 'package:playtogether_hirer/services/login_service.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:playtogether_hirer/helpers/helper.dart' as helper;
@@ -24,16 +25,16 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
-  Login login = new Login(email: "", password: "");
+  LoginModel login = LoginModel(email: "", password: "");
   final List listError = [''];
   bool obsecure = true;
+  late HirerModel hirerModel;
+  late TokenModel tokenModel;
 
-  late HirerModel _hirerModel;
-  late LoginModel _loginModel;
   Widget getScreen() {
     return HomePage(
-      hirerModel: _hirerModel,
-      loginModel: _loginModel,
+      hirerModel: hirerModel,
+      tokenModel: tokenModel,
     );
   }
 
@@ -99,34 +100,24 @@ class _LoginPageState extends State<LoginPage> {
                         _formKey.currentState!.save();
                         if (listError.length == 1) {}
                       }
-
-                      // LOGIN
                       setState(() {
                         login.email = email;
                         login.password = password;
-                        Future<LoginModel?> loginModelFuture =
-                            HirerService().login(login);
-
+                        Future<TokenModel?> loginModelFuture =
+                            LoginService().login(login);
                         loginModelFuture.then((value) {
                           if (value != null) {
-                            _loginModel = value;
-
-                            // if (value != null) {
-                            //   print("khong null");
-                            //   print(value.toString());
-                            // } else
-                            //   print("null roi");
+                            tokenModel = value;
                             setState(() {
                               if (value != null) {
-                                Future<HirerModel> userModelFuture =
+                                Future<HirerModel?> userModelFuture =
                                     HirerService()
                                         .getHirerProfile(value.message);
-
                                 print(value.message);
                                 userModelFuture.then((hirer) {
                                   setState(() {
                                     if (hirer != null) {
-                                      _hirerModel = hirer;
+                                      hirerModel = hirer;
                                       helper.pushInto(
                                           context, getScreen(), true);
                                     }
@@ -140,20 +131,6 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         });
                       });
-
-                      // setState(() {
-                      //   Future<HirerModel> userModelFuture = HirerService()
-                      //       .getHirerProfile(
-                      //           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImVmZTA3YTliLTc5MTEtNGIzMS04NzMxLTU5Yjk1NGU3MzRlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZWZlMDdhOWItNzkxMS00YjMxLTg3MzEtNTliOTU0ZTczNGVkIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Im1hbmhuZ3V5ZW5AZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoibWFuaG5ndXllbkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJoaXJlciIsImV4cCI6MTY0NjIzNDg2MX0.JqTVNypYoFgslwmjJvMmDB0NQgxE-G418MLUbr4-Qqg");
-                      //   userModelFuture.then((hirer) {
-                      //     setState(() {
-                      //       if (hirer != null) {
-                      //         _hirerModel = hirer;
-                      //         helper.pushInto(context, getScreen(), true);
-                      //       }
-                      //     });
-                      //   });
-                      // });
                     },
                   ),
                 ],

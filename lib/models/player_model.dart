@@ -1,9 +1,5 @@
 class PlayerModel {
   String id;
-  // final String name;
-  // final List<String> abilities;
-  // final List<String> images;
-  // final bool isHired;
   String avatar;
   String firstname;
   String lastname;
@@ -13,10 +9,6 @@ class PlayerModel {
 
   PlayerModel({
     required this.id,
-    // required this.name,
-    // required this.abilities,
-    // required this.images,
-    // this.isHired = false,
     required this.avatar,
     required this.firstname,
     required this.lastname,
@@ -45,42 +37,3 @@ class PlayerModel {
         "status": status,
       };
 }
-
-// List<PlayerModel> demoPlayer = [
-//   PlayerModel(
-//       id: 1,
-//       name: "Hằng Đàm",
-//       images: [
-//         "assets/images/HangDam.png",
-//         "assets/images/HangDam.png",
-//       ],
-//       abilities: [
-//         "Games",
-//         "Ca hát",
-//       ],
-//       isHired: true),
-//   PlayerModel(
-//       id: 2,
-//       name: "Jennie",
-//       images: [
-//         "assets/images/Jennie.png",
-//         "assets/images/Jennie.png",
-//       ],
-//       abilities: [
-//         "Games",
-//         "Ca hát",
-//       ],
-//       isHired: true),
-//   PlayerModel(
-//       id: 3,
-//       name: "Zuto",
-//       images: [
-//         "assets/images/Zuto.png",
-//         "assets/images/Zuto.png",
-//       ],
-//       abilities: [
-//         "Games",
-//         "Ca hát",
-//       ],
-//       isHired: true),
-// ];

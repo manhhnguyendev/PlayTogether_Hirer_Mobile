@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/hiring_model.dart';
-import 'package:playtogether_hirer/models/login_model.dart';
+import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/history_hiring_card.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 
 class HistoryPage extends StatefulWidget {
   static String routeName = 'HistoryHiring';
   final HirerModel hirerModel;
-  final LoginModel loginModel;
+  final TokenModel tokenModel;
   const HistoryPage(
-      {Key? key, required this.hirerModel, required this.loginModel})
+      {Key? key, required this.hirerModel, required this.tokenModel})
       : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
       bottomNavigationBar: BottomBar(
         hirerModel: widget.hirerModel,
-        loginModel: widget.loginModel,
+        tokenModel: widget.tokenModel,
         bottomBarIndex: 1,
       ),
     );

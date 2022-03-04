@@ -8,6 +8,8 @@ class HirerModel {
   String dateOfBirth;
   bool gender;
   bool confirmEmail;
+  String avatar;
+  double balance;
 
   HirerModel({
     required this.email,
@@ -19,6 +21,8 @@ class HirerModel {
     required this.dateOfBirth,
     required this.gender,
     required this.confirmEmail,
+    required this.avatar,
+    required this.balance,
   });
 
   factory HirerModel.fromJson(Map<String, dynamic> json) => HirerModel(
@@ -31,6 +35,8 @@ class HirerModel {
         dateOfBirth: json['dateOfBirth'] as String,
         gender: json['gender'] as bool,
         confirmEmail: json['confirmEmail'] as bool,
+        avatar: json['avatar'] as String,
+        balance: json['balance'] as double,
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +49,7 @@ class HirerModel {
         "dateOfBirth": dateOfBirth,
         "gender": gender,
         "confirmEmail": confirmEmail,
+        "avatar": avatar,
+        "balance": balance,
       };
 }
