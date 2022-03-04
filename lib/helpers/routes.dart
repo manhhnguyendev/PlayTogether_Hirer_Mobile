@@ -31,7 +31,6 @@ final Map<String, WidgetBuilder> routes = {
   HiringNegotiatingPage.routeName: (context) => HiringNegotiatingPage(),
   HiringPage.routeName: (context) => HiringPage(),
   RatingAndCommentPage.routeName: (context) => RatingAndCommentPage(),
-  UserProfilePage.routeName: (context) => UserProfilePage(),
   SearchPage.routeName: (context) => SearchPage(),
   HistoryHiringDetail.routeName: (context) => HistoryHiringDetail(
         detailHiringModel: demoDetailHiring,
@@ -40,4 +39,5 @@ final Map<String, WidgetBuilder> routes = {
   //HistoryPage.routeName: (context) => HistoryPage(),
   //NotificationsPage.routeName: (context) => NotificationsPage(),
   //UserAccountPage.routeName: (context) => UserAccountPage(),
+  //UserProfilePage.routeName: (context) => UserProfilePage(),
 };

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
-import 'package:playtogether_hirer/models/login_model.dart';
+import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/user_profile_details_page.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class UserAccountPage extends StatefulWidget {
   final HirerModel hirerModel;
-  final LoginModel loginModel;
-
+  final TokenModel tokenModel;
   const UserAccountPage({
     Key? key,
     required this.hirerModel,
-    required this.loginModel,
+    required this.tokenModel,
   }) : super(key: key);
-  static String routeName = 'UserAccount';
   @override
   _UserAccountPageState createState() => _UserAccountPageState();
 }
@@ -36,7 +35,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
                   height: 150,
                   width: 150,
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(profileLink),
+                    backgroundImage: NetworkImage(widget.hirerModel.avatar),
                   ),
                 ),
                 Padding(
@@ -46,7 +45,9 @@ class _UserAccountPageState extends State<UserAccountPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Player Name',
+                        widget.hirerModel.firstname +
+                            ' ' +
+                            widget.hirerModel.lastname,
                         style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
@@ -54,8 +55,13 @@ class _UserAccountPageState extends State<UserAccountPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(
-                              context, UserProfilePage.routeName);
+                          helper.pushInto(
+                              context,
+                              UserProfilePage(
+                                hirerModel: widget.hirerModel,
+                                tokenModel: widget.tokenModel,
+                              ),
+                              true);
                         },
                         child: Row(
                           children: [
@@ -104,7 +110,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
                           height: 5,
                         ),
                         Text(
-                          '500.000' + ' vnđ',
+                          widget.hirerModel.balance.toString() + ' vnđ',
                           style:
                               TextStyle(fontSize: 22, color: Color(0xff320444)),
                         ),
@@ -309,7 +315,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
       ),
       bottomNavigationBar: BottomBar(
         hirerModel: widget.hirerModel,
-        loginModel: widget.loginModel,
+        tokenModel: widget.tokenModel,
         bottomBarIndex: 3,
       ),
     );

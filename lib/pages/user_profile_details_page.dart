@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/constants/const.dart';
+import 'package:playtogether_hirer/models/hirer_model.dart';
+import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/profile_accept_button.dart';
 
 class UserProfilePage extends StatefulWidget {
   static String routeName = 'UserProfileDetails';
-  const UserProfilePage({Key? key}) : super(key: key);
+  final HirerModel hirerModel;
+  final TokenModel tokenModel;
+  const UserProfilePage(
+      {Key? key, required this.hirerModel, required this.tokenModel})
+      : super(key: key);
 
   @override
   _UserProfilePageState createState() => _UserProfilePageState();
@@ -88,11 +94,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
     'Vĩnh Phúc',
     'Yên Bái',
   ];
-  String? province;
+  String? city;
   final List listErrorFirstName = [''];
   final List listErrorLastName = [''];
   final List listErrorBirthday = ['', birthdayNullError];
-  final List listErrorProvince = [''];
+  final List listErrorCity = [''];
 
   void loadData() {
     listDrop = [];
@@ -199,7 +205,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     children: [
                       SizedBox(
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(profileLink),
+                          backgroundImage:
+                              NetworkImage(widget.hirerModel.avatar),
                         ),
                       ),
                       Positioned(
@@ -258,7 +265,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: buildProvinceField(),
+                              child: buildCityField(),
                               flex: 7,
                             ),
                             const Expanded(
@@ -333,7 +340,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   if (listErrorFirstName.length ==
                           1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
                       listErrorLastName.length == 1 &&
-                      listErrorProvince.length == 1 &&
+                      listErrorCity.length == 1 &&
                       listErrorBirthday.length == 1) {
                     print("ALL VALID");
                   }
@@ -443,7 +450,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     onChanged: (value) {
                       setState(() {
                         gender = true;
-                        print("Nam");
                       });
                     }),
                 const Text("Nam")
@@ -461,7 +467,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     onChanged: (value) {
                       setState(() {
                         gender = false;
-                        print("Nữ");
                       });
                     }),
                 const Text("Nữ"),
@@ -515,21 +520,20 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  Container buildProvinceField() {
+  Container buildCityField() {
     return Container(
       child: DropdownButtonHideUnderline(
         child: DropdownButton(
           isExpanded: true,
-          value: province,
+          value: city,
           items: listDrop,
           hint: const Text('Thành phố của bạn'),
           iconSize: 0.0,
           elevation: 16,
           onChanged: (value) {
-            province = value as String;
+            city = value as String;
             setState(() {
-              province = value;
-              print(province);
+              city = value;
             });
           },
         ),

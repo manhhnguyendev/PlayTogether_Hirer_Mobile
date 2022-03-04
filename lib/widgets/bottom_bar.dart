@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 import 'package:playtogether_hirer/models/hirer_model.dart';
-import 'package:playtogether_hirer/models/login_model.dart';
+import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
 import 'package:playtogether_hirer/pages/history_page.dart';
 import 'package:playtogether_hirer/pages/notification_page.dart';
@@ -11,12 +11,12 @@ import 'package:playtogether_hirer/pages/user_account_page.dart';
 class BottomBar extends StatefulWidget {
   final int bottomBarIndex;
   final HirerModel hirerModel;
-  final LoginModel loginModel;
+  final TokenModel tokenModel;
   const BottomBar(
       {Key? key,
       required this.bottomBarIndex,
       required this.hirerModel,
-      required this.loginModel})
+      required this.tokenModel})
       : super(key: key);
 
   @override
@@ -64,7 +64,7 @@ class _BottomBarState extends State<BottomBar> {
               context,
               HomePage(
                 hirerModel: widget.hirerModel,
-                loginModel: widget.loginModel,
+                tokenModel: widget.tokenModel,
               ),
               isRightToLeft,
             );
@@ -73,7 +73,7 @@ class _BottomBarState extends State<BottomBar> {
               context,
               HistoryPage(
                 hirerModel: widget.hirerModel,
-                loginModel: widget.loginModel,
+                tokenModel: widget.tokenModel,
               ),
               isRightToLeft,
             );
@@ -82,7 +82,7 @@ class _BottomBarState extends State<BottomBar> {
               context,
               NotificationsPage(
                 hirerModel: widget.hirerModel,
-                loginModel: widget.loginModel,
+                tokenModel: widget.tokenModel,
               ),
               isRightToLeft,
             );
@@ -91,7 +91,7 @@ class _BottomBarState extends State<BottomBar> {
               context,
               UserAccountPage(
                 hirerModel: widget.hirerModel,
-                loginModel: widget.loginModel,
+                tokenModel: widget.tokenModel,
               ),
               isRightToLeft,
             );
