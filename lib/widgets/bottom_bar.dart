@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
 import 'package:playtogether_hirer/models/hirer_model.dart';
-import 'package:playtogether_hirer/pages/history_page.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
+import 'package:playtogether_hirer/pages/history_page.dart';
 import 'package:playtogether_hirer/pages/notification_page.dart';
 import 'package:playtogether_hirer/pages/user_account_page.dart';
 
 class BottomBar extends StatefulWidget {
   final int bottomBarIndex;
   final HirerModel hirerModel;
-  BottomBar({Key? key, required this.bottomBarIndex, required this.hirerModel})
+  final LoginModel loginModel;
+  const BottomBar(
+      {Key? key,
+      required this.bottomBarIndex,
+      required this.hirerModel,
+      required this.loginModel})
       : super(key: key);
 
   @override
@@ -24,7 +30,7 @@ class _BottomBarState extends State<BottomBar> {
       selectedItemColor: my_colors.primary,
       unselectedItemColor: my_colors.secondary,
       currentIndex: widget.bottomBarIndex,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined, size: 30),
           activeIcon: Icon(Icons.home, size: 30),
@@ -58,26 +64,26 @@ class _BottomBarState extends State<BottomBar> {
               context,
               HomePage(
                 hirerModel: widget.hirerModel,
+                loginModel: widget.loginModel,
               ),
               isRightToLeft,
             );
           } else if (index == 1) {
-            //===================================================================================
-
             helper.pushInto(
               context,
               HistoryPage(
-                  // hirerModel: widget.hirerModel,
-                  ),
+                hirerModel: widget.hirerModel,
+                loginModel: widget.loginModel,
+              ),
               isRightToLeft,
             );
-            //===================================================================================
           } else if (index == 2) {
             helper.pushInto(
               context,
               NotificationsPage(
-                  //hirerModel: widget.hirerModel,
-                  ),
+                hirerModel: widget.hirerModel,
+                loginModel: widget.loginModel,
+              ),
               isRightToLeft,
             );
           } else if (index == 3) {
@@ -85,6 +91,7 @@ class _BottomBarState extends State<BottomBar> {
               context,
               UserAccountPage(
                 hirerModel: widget.hirerModel,
+                loginModel: widget.loginModel,
               ),
               isRightToLeft,
             );

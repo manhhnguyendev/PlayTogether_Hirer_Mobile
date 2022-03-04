@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 import 'package:playtogether_hirer/pages/user_profile_details_page.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 
 class UserAccountPage extends StatefulWidget {
   final HirerModel hirerModel;
+  final LoginModel loginModel;
 
   const UserAccountPage({
     Key? key,
     required this.hirerModel,
+    required this.loginModel,
   }) : super(key: key);
   static String routeName = 'UserAccount';
   @override
@@ -20,10 +23,6 @@ class _UserAccountPageState extends State<UserAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomBar(
-        hirerModel: widget.hirerModel,
-        bottomBarIndex: 3,
-      ),
       body: Column(
         children: [
           SizedBox(
@@ -307,6 +306,11 @@ class _UserAccountPageState extends State<UserAccountPage> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomBar(
+        hirerModel: widget.hirerModel,
+        loginModel: widget.loginModel,
+        bottomBarIndex: 3,
       ),
     );
   }

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/hiring_model.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 import 'package:playtogether_hirer/pages/history_hiring_card.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 
 class HistoryPage extends StatefulWidget {
   static String routeName = 'HistoryHiring';
-  //final HirerModel hirerModel;
-  //const HistoryPage({Key? key, required this.hirerModel}) : super(key: key);
-  const HistoryPage({Key? key}) : super(key: key);
+  final HirerModel hirerModel;
+  final LoginModel loginModel;
+  const HistoryPage(
+      {Key? key, required this.hirerModel, required this.loginModel})
+      : super(key: key);
 
   @override
   _HistoryPageState createState() => _HistoryPageState();
@@ -51,10 +54,11 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomBar(
-      //   hirerModel: widget.hirerModel,
-      //   bottomBarIndex: 1,
-      // ),
+      bottomNavigationBar: BottomBar(
+        hirerModel: widget.hirerModel,
+        loginModel: widget.loginModel,
+        bottomBarIndex: 1,
+      ),
     );
   }
 

@@ -29,8 +29,12 @@ class _LoginPageState extends State<LoginPage> {
   bool obsecure = true;
 
   late HirerModel _hirerModel;
+  late LoginModel _loginModel;
   Widget getScreen() {
-    return HomePage(hirerModel: _hirerModel);
+    return HomePage(
+      hirerModel: _hirerModel,
+      loginModel: _loginModel,
+    );
   }
 
   void addError({String? error}) {
@@ -102,30 +106,38 @@ class _LoginPageState extends State<LoginPage> {
                         login.password = password;
                         Future<LoginModel?> loginModelFuture =
                             HirerService().login(login);
+
                         loginModelFuture.then((value) {
-                          // if (value != null) {
-                          //   print("khong null");
-                          //   print(value.toString());
-                          // } else
-                          //   print("null roi");
-                          setState(() {
-                            if (value != null) {
-                              Future<HirerModel> userModelFuture =
-                                  HirerService().getHirerProfile(value.message);
-                              print(value.message);
-                              userModelFuture.then((hirer) {
-                                setState(() {
-                                  if (hirer != null) {
-                                    _hirerModel = hirer;
-                                    helper.pushInto(context, getScreen(), true);
-                                  }
+                          if (value != null) {
+                            _loginModel = value;
+
+                            // if (value != null) {
+                            //   print("khong null");
+                            //   print(value.toString());
+                            // } else
+                            //   print("null roi");
+                            setState(() {
+                              if (value != null) {
+                                Future<HirerModel> userModelFuture =
+                                    HirerService()
+                                        .getHirerProfile(value.message);
+
+                                print(value.message);
+                                userModelFuture.then((hirer) {
+                                  setState(() {
+                                    if (hirer != null) {
+                                      _hirerModel = hirer;
+                                      helper.pushInto(
+                                          context, getScreen(), true);
+                                    }
+                                  });
                                 });
-                              });
-                            } else {
-                              print(
-                                  "Tên đăng nhập hoặc mật khẩu không chính xác");
-                            }
-                          });
+                              } else {
+                                print(
+                                    "Tên đăng nhập hoặc mật khẩu không chính xác");
+                              }
+                            });
+                          }
                         });
                       });
 
