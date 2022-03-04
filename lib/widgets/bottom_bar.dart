@@ -67,8 +67,8 @@ class _BottomBarState extends State<BottomBar> {
             helper.pushInto(
               context,
               HistoryPage(
-                hirerModel: widget.hirerModel,
-              ),
+                  // hirerModel: widget.hirerModel,
+                  ),
               isRightToLeft,
             );
             //===================================================================================
@@ -76,8 +76,8 @@ class _BottomBarState extends State<BottomBar> {
             helper.pushInto(
               context,
               NotificationsPage(
-                hirerModel: widget.hirerModel,
-              ),
+                  //hirerModel: widget.hirerModel,
+                  ),
               isRightToLeft,
             );
           } else if (index == 3) {
