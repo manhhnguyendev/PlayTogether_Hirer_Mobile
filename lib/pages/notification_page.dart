@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
+import 'package:playtogether_hirer/models/login_model.dart';
 import 'package:playtogether_hirer/models/notification_model.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 import 'package:playtogether_hirer/widgets/notification_card.dart';
 
 class NotificationsPage extends StatefulWidget {
   static String routeName = 'NotificationPage';
-  // final HirerModel hirerModel;
-  // const NotificationsPage({Key? key, required this.hirerModel})
-  //     : super(key: key);
+  final HirerModel hirerModel;
+  final LoginModel loginModel;
 
-  const NotificationsPage({Key? key}) : super(key: key);
+  const NotificationsPage(
+      {Key? key, required this.hirerModel, required this.loginModel})
+      : super(key: key);
 
   @override
   _NotificationsPageState createState() => _NotificationsPageState();
@@ -53,10 +55,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomBar(
-      //   hirerModel: widget.hirerModel,
-      //   bottomBarIndex: 2,
-      // ),
+      bottomNavigationBar: BottomBar(
+        hirerModel: widget.hirerModel,
+        loginModel: widget.loginModel,
+        bottomBarIndex: 2,
+      ),
     );
   }
 
