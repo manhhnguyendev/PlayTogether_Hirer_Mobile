@@ -22,4 +22,21 @@ class HirerService {
     }
     return result;
   }
+
+  Future<HirerModel?> getHirerProfileById(dynamic token, String id) async {
+    Response response;
+    HirerModel? result;
+    try {
+      response = await get(
+        Uri.parse('${apiUrl.hirers}/profile/$id'),
+        headers: configJson.headerAuth(token),
+      );
+      if (response.statusCode == 200) {
+        result = HirerModel.fromJson(json.decode(response.body));
+      }
+    } on Exception {
+      rethrow;
+    }
+    return result;
+  }
 }

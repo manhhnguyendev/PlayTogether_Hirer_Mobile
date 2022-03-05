@@ -35,11 +35,12 @@ class _PlayerCardState extends State<PlayerCard> {
                       padding: EdgeInsets.all(1 / 1000 * size.width),
                       decoration: BoxDecoration(
                         color: my_colors.secondary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: ClipRRect(
-                        child: Image.asset("assets/images/HangDam.png",
+                        child: Image.network(widget.playerModel.avatar,
                             fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
@@ -47,19 +48,21 @@ class _PlayerCardState extends State<PlayerCard> {
                   Row(
                     children: [
                       Text(
-                        widget.playerModel.firstname,
+                        widget.playerModel.firstname +
+                            ' ' +
+                            widget.playerModel.lastname,
                         style: TextStyle(color: Colors.black),
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        widget.playerModel.lastname,
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Text(
+                  //       widget.playerModel.lastname,
+                  //       style: TextStyle(fontSize: 12, color: Colors.grey),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             )));

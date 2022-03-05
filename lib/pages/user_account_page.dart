@@ -73,7 +73,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
                               ),
                             ),
                             SizedBox(
-                              width: 10,
+                              width: 5,
                             ),
                             Icon(
                               Icons.arrow_forward_ios,
