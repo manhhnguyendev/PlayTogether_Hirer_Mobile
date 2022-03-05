@@ -10,7 +10,7 @@ class PlayerService {
     Response response;
     List<PlayerModel>? result;
     try {
-      response = response = await get(
+      response = await get(
         Uri.parse(apiUrl.players),
         headers: configJson.headerAuth(token),
       );

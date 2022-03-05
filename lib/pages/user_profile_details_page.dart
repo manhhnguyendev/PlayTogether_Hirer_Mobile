@@ -6,7 +6,6 @@ import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/profile_accept_button.dart';
 
 class UserProfilePage extends StatefulWidget {
-  static String routeName = 'UserProfileDetails';
   final HirerModel hirerModel;
   final TokenModel tokenModel;
   const UserProfilePage(
@@ -310,7 +309,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               flex: 3,
                               child: Container(
                                   alignment: Alignment.centerLeft,
-                                  child: buildGenderSelection()),
+                                  child: buildGenderSelection(
+                                      widget.hirerModel.gender)),
                             ),
                           ],
                         ),
@@ -331,7 +331,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
           child: AcceptProfileButton(
-              text: "HOÀN TẤT",
+              text: "CẬP NHẬT",
               onpress: () {
                 if (_formKey.currentState == null) {
                   print("_formKey.currentState is null!");
@@ -434,7 +434,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  Container buildGenderSelection() {
+  Container buildGenderSelection(bool gender) {
     return Container(
       alignment: Alignment.center,
       child: Row(
@@ -445,6 +445,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               children: [
                 Radio(
                     activeColor: Color(0xff320444),
+                    //value: gender ? true : false,
                     value: true,
                     groupValue: gender,
                     onChanged: (value) {
@@ -462,6 +463,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               children: [
                 Radio(
                     activeColor: Color(0xff320444),
+                    //value: gender ? false : true,
                     value: false,
                     groupValue: gender,
                     onChanged: (value) {
