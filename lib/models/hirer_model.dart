@@ -12,19 +12,20 @@ class HirerModel {
   double balance;
   String id;
 
-  HirerModel(
-      {required this.email,
-      required this.password,
-      required this.confirmPassword,
-      required this.firstname,
-      required this.lastname,
-      required this.city,
-      required this.dateOfBirth,
-      required this.gender,
-      required this.confirmEmail,
-      required this.avatar,
-      required this.balance,
-      required this.id});
+  HirerModel({
+    required this.email,
+    required this.password,
+    required this.confirmPassword,
+    required this.firstname,
+    required this.lastname,
+    required this.city,
+    required this.dateOfBirth,
+    required this.gender,
+    required this.confirmEmail,
+    required this.avatar,
+    required this.balance,
+    required this.id,
+  });
 
   factory HirerModel.fromJson(Map<String, dynamic> json) => HirerModel(
         email: json['email'] as String,

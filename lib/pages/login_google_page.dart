@@ -2,38 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:playtogether_hirer/helpers/helper.dart' as helper;
+import 'package:playtogether_hirer/models/hirer_model.dart';
+import 'package:playtogether_hirer/models/login_google_model.dart';
+import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
+import 'package:playtogether_hirer/services/hirer_service.dart';
+import 'package:playtogether_hirer/services/login_google_service.dart';
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class LoginGooglePage extends StatefulWidget {
-  static String routeName = "login_google";
+  const LoginGooglePage({Key? key}) : super(key: key);
   @override
   _GoogleButtonState createState() => _GoogleButtonState();
 }
 
 class _GoogleButtonState extends State<LoginGooglePage> {
+  final String providerName = "https://accounts.google.com";
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
-  late FirebaseAuth _auth;
+  late HirerModel hirerModel;
+  late TokenModel tokenModel;
   late GoogleSignIn _googleSignIn;
 
-  Future<User> _handleSignIn() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
+  LoginGoogleModel loginGoogle =
+      LoginGoogleModel(idToken: "", providerName: "");
+
+  Widget getScreen() {
+    return HomePage(
+      hirerModel: hirerModel,
+      tokenModel: tokenModel,
     );
-    final User user = (await _auth.signInWithCredential(credential)).user;
-    print("Id Token: " + googleAuth.idToken);
-    return user;
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    bool login = false;
     return Container(
       height: 70,
       alignment: Alignment.center,
@@ -45,7 +47,6 @@ class _GoogleButtonState extends State<LoginGooglePage> {
                 return const Text('Something went wrong');
               }
               if (snapshot.connectionState == ConnectionState.done) {
-                _auth = FirebaseAuth.instance;
                 _googleSignIn = GoogleSignIn();
                 return Container(
                   alignment: Alignment.center,
@@ -55,28 +56,41 @@ class _GoogleButtonState extends State<LoginGooglePage> {
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
-                      //side: BorderSide(color: Colors.black, width: 1),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: FlatButton(
                         color: const Color.fromRGBO(219, 68, 50, 1),
-                        //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                         onPressed: () {
-                          // dynamic result = await _handleSignIn();
-                          dynamic result = _handleSignIn();
-                          print("qua buoc 1");
-                          print(result);
                           setState(() {
-                            if (result != null) {
-                              print("ko null ne em oi");
-                              // helper.pushInto(
-                              //   context,
-                              //   HomePage(),
-                              //   true,
-                              // );
-                            } else
-                              print("null roi ne");
+                            _googleSignIn.signIn().then((result) {
+                              result.authentication.then((googleKey) {
+                                loginGoogle.providerName = providerName;
+                                loginGoogle.idToken = googleKey.idToken;
+                              });
+                            });
+                            Future<TokenModel?> loginGoogleModelFuture =
+                                LoginGoogleService().loginGoogle(loginGoogle);
+                            loginGoogleModelFuture.then((value) {
+                              if (value != null) {
+                                tokenModel = value;
+                                setState(() {
+                                  Future<HirerModel?> hirerModelFuture =
+                                      HirerService()
+                                          .getHirerProfile(value.message);
+                                  print(value.message);
+                                  hirerModelFuture.then((hirer) {
+                                    setState(() {
+                                      if (hirer != null) {
+                                        hirerModel = hirer;
+                                        helper.pushInto(
+                                            context, getScreen(), true);
+                                      }
+                                    });
+                                  });
+                                });
+                              }
+                            });
                           });
                         },
                         child: Row(
