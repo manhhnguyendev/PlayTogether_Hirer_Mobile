@@ -23,13 +23,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String email = "";
-  String password = "";
-  LoginModel login = LoginModel(email: "", password: "");
   final List listError = [''];
-  bool obsecure = true;
   late HirerModel hirerModel;
   late TokenModel tokenModel;
+  String email = "";
+  String password = "";
+  bool obsecure = true;
+
+  LoginModel login = LoginModel(email: "", password: "");
 
   Widget getScreen() {
     return HomePage(
@@ -110,11 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                             tokenModel = value;
                             setState(() {
                               if (value != null) {
-                                Future<HirerModel?> userModelFuture =
+                                Future<HirerModel?> hirerModelFuture =
                                     HirerService()
                                         .getHirerProfile(value.message);
                                 print(value.message);
-                                userModelFuture.then((hirer) {
+                                hirerModelFuture.then((hirer) {
                                   setState(() {
                                     if (hirer != null) {
                                       hirerModel = hirer;

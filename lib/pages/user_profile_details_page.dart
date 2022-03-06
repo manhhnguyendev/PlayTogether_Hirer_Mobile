@@ -4,10 +4,12 @@ import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/profile_accept_button.dart';
+import 'package:intl/intl.dart';
 
 class UserProfilePage extends StatefulWidget {
   final HirerModel hirerModel;
   final TokenModel tokenModel;
+
   const UserProfilePage(
       {Key? key, required this.hirerModel, required this.tokenModel})
       : super(key: key);
@@ -18,15 +20,23 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
   String profileLink = "assets/images/defaultprofile.png";
-  final _formKey = GlobalKey<FormState>();
-  bool checkFirstTime = true;
-  final initialDate = DateTime.now();
   String firstName = "";
   String lastName = "";
-  late DateTime rawBirthday;
-  ValueNotifier<String> notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
-  bool gender = true;
-  final tec = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final initialDate = DateTime.now();
+  final List listErrorFirstName = [''];
+  final List listErrorLastName = [''];
+  final List listErrorBirthday = ['', birthdayNullError];
+  final List listErrorCity = [''];
+  final controllerFirstName = TextEditingController();
+  final controllerLastName = TextEditingController();
+  final controllerDateOfBirth = TextEditingController();
+  late String city;
+  late DateTime dateOfBirth;
+  late bool gender;
+  bool checkFirstTime = true;
+  ValueNotifier<String> dateDisplay =
+      ValueNotifier<String>("Ngày sinh của bạn");
   List<DropdownMenuItem<String>> listDrop = [];
   List<String> drop = [
     'An Giang',
@@ -93,11 +103,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
     'Vĩnh Phúc',
     'Yên Bái',
   ];
-  String? city;
-  final List listErrorFirstName = [''];
-  final List listErrorLastName = [''];
-  final List listErrorBirthday = ['', birthdayNullError];
-  final List listErrorCity = [''];
 
   void loadData() {
     listDrop = [];
@@ -126,24 +131,25 @@ class _UserProfilePageState extends State<UserProfilePage> {
   }
 
   void convertBirthday() {
-    if (rawBirthday == null) {
-      notiBirth.value = "Ngày sinh của bạn";
+    if (dateOfBirth == null) {
+      dateDisplay.value = "Ngày sinh của bạn";
     } else {
-      notiBirth.value =
-          '${rawBirthday.day}/${rawBirthday.month}/${rawBirthday.year}';
+      dateDisplay.value =
+          '${dateOfBirth.day}/${dateOfBirth.month}/${dateOfBirth.year}';
     }
   }
 
   @override
   void initState() {
-    notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
-    notiBirth.addListener(() {
-      tec.text = notiBirth.value;
-      if (tec.text != "Ngày sinh của bạn" &&
-          tec.text.isNotEmpty &&
+    dateDisplay = ValueNotifier<String>("Ngày sinh của bạn");
+    dateDisplay.addListener(() {
+      controllerDateOfBirth.text = dateDisplay.value;
+      if (controllerDateOfBirth.text != "Ngày sinh của bạn" &&
+          controllerDateOfBirth.text.isNotEmpty &&
           listErrorBirthday.contains(birthdayNullError)) {
         listErrorBirthday.remove(birthdayNullError);
-      } else if ((tec.text == "Ngày sinh của bạn" || tec.text.isEmpty) &&
+      } else if ((controllerDateOfBirth.text == "Ngày sinh của bạn" ||
+              controllerDateOfBirth.text.isEmpty) &&
           !listErrorBirthday.contains(birthdayNullError)) {
         listErrorBirthday.add(birthdayNullError);
       }
@@ -156,18 +162,25 @@ class _UserProfilePageState extends State<UserProfilePage> {
     if (checkFirstTime) {
       loadData();
       checkFirstTime = false;
+      String dateConvert = DateFormat('dd/MM/yyyy')
+          .format(DateTime.parse(widget.hirerModel.dateOfBirth));
+      controllerFirstName.text = widget.hirerModel.firstname;
+      controllerLastName.text = widget.hirerModel.lastname;
+      controllerDateOfBirth.text = dateConvert;
+      city = widget.hirerModel.city;
+      gender = widget.hirerModel.gender;
     }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 1,
           leading: Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: FlatButton(
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
               ),
               onPressed: () {
@@ -176,7 +189,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
           ),
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Thông tin tài khoản',
             style: TextStyle(
                 fontSize: 18,
@@ -190,7 +203,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
@@ -214,13 +227,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           child: RawMaterialButton(
                             onPressed: () {},
                             elevation: 2.0,
-                            fillColor: Color(0xFFF5F6F9),
-                            child: Icon(
+                            fillColor: const Color(0xFFF5F6F9),
+                            child: const Icon(
                               Icons.add_a_photo_outlined,
                               color: Colors.black,
                             ),
-                            padding: EdgeInsets.all(8.0),
-                            shape: CircleBorder(),
+                            padding: const EdgeInsets.all(8.0),
+                            shape: const CircleBorder(),
                           )),
                     ],
                   ),
@@ -309,8 +322,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               flex: 3,
                               child: Container(
                                   alignment: Alignment.centerLeft,
-                                  child: buildGenderSelection(
-                                      widget.hirerModel.gender)),
+                                  child: buildGenderSelection()),
                             ),
                           ],
                         ),
@@ -337,8 +349,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   print("_formKey.currentState is null!");
                 } else if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  if (listErrorFirstName.length ==
-                          1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                  if (listErrorFirstName.length == 1 &&
                       listErrorLastName.length == 1 &&
                       listErrorCity.length == 1 &&
                       listErrorBirthday.length == 1) {
@@ -353,6 +364,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   TextFormField buildFirstNameField() {
     return TextFormField(
+      controller: controllerFirstName,
       maxLength: 30,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => firstName = newValue!,
@@ -395,6 +407,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   TextFormField buildLastNameField() {
     return TextFormField(
+      controller: controllerLastName,
       maxLength: 30,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => lastName = newValue!,
@@ -434,7 +447,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  Container buildGenderSelection(bool gender) {
+  Container buildGenderSelection() {
     return Container(
       alignment: Alignment.center,
       child: Row(
@@ -444,8 +457,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             child: Row(
               children: [
                 Radio(
-                    activeColor: Color(0xff320444),
-                    //value: gender ? true : false,
+                    activeColor: const Color(0xff320444),
                     value: true,
                     groupValue: gender,
                     onChanged: (value) {
@@ -462,8 +474,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             child: Row(
               children: [
                 Radio(
-                    activeColor: Color(0xff320444),
-                    //value: gender ? false : true,
+                    activeColor: const Color(0xff320444),
                     value: false,
                     groupValue: gender,
                     onChanged: (value) {
@@ -482,9 +493,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   TextFormField buildBirthdayField() {
     return TextFormField(
-      controller: tec,
+      controller: controllerDateOfBirth,
       onSaved: (newValue) {
-        notiBirth.value = newValue!;
+        dateDisplay.value = newValue!;
       },
       decoration: const InputDecoration(
         counterText: "",
@@ -514,9 +525,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
           firstDate: DateTime(DateTime.now().year - 100),
           lastDate: DateTime(DateTime.now().year + 1),
         ).then((date) {
-          rawBirthday = date!;
+          dateOfBirth = date!;
           convertBirthday();
-          print(notiBirth.value);
         });
       },
     );

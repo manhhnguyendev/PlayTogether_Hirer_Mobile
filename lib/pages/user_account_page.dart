@@ -3,16 +3,17 @@ import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/user_profile_details_page.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
-import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class UserAccountPage extends StatefulWidget {
   final HirerModel hirerModel;
   final TokenModel tokenModel;
+
   const UserAccountPage({
     Key? key,
     required this.hirerModel,
     required this.tokenModel,
   }) : super(key: key);
+
   @override
   _UserAccountPageState createState() => _UserAccountPageState();
 }
@@ -24,7 +25,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Padding(
@@ -48,23 +49,23 @@ class _UserAccountPageState extends State<UserAccountPage> {
                         widget.hirerModel.firstname +
                             ' ' +
                             widget.hirerModel.lastname,
-                        style: TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       GestureDetector(
                         onTap: () {
-                          helper.pushInto(
-                              context,
-                              UserProfilePage(
-                                hirerModel: widget.hirerModel,
-                                tokenModel: widget.tokenModel,
-                              ),
-                              true);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserProfilePage(
+                                    hirerModel: widget.hirerModel,
+                                    tokenModel: widget.tokenModel)),
+                          );
                         },
                         child: Row(
-                          children: [
+                          children: const [
                             Text(
                               'Chỉnh sửa tài khoản',
                               style: TextStyle(
@@ -102,22 +103,22 @@ class _UserAccountPageState extends State<UserAccountPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Số dư trong ví:',
                           style: TextStyle(fontSize: 18),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
                           widget.hirerModel.balance.toString() + ' vnđ',
-                          style:
-                              TextStyle(fontSize: 22, color: Color(0xff320444)),
+                          style: const TextStyle(
+                              fontSize: 22, color: Color(0xff320444)),
                         ),
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     decoration: BoxDecoration(border: Border.all()),
                     height: 70,
@@ -128,7 +129,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
                     child: GestureDetector(
                       onTap: () {},
                       child: Column(
-                        children: [
+                        children: const [
                           Icon(
                             Icons.account_balance_wallet_outlined,
                             size: 30,
@@ -154,7 +155,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
             child: GestureDetector(
               onTap: () {},
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Lịch sử nạp tiền',
                     style: TextStyle(fontSize: 20),
@@ -169,8 +170,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Divider(
               thickness: 1,
               color: Colors.grey,
@@ -181,7 +182,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
             child: GestureDetector(
               onTap: () {},
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Danh sách theo dõi',
                     style: TextStyle(fontSize: 20),
@@ -196,8 +197,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Divider(
               thickness: 1,
               color: Colors.grey,
@@ -208,7 +209,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
             child: GestureDetector(
               onTap: () {},
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Thay đổi mật khẩu',
                     style: TextStyle(fontSize: 20),
@@ -223,8 +224,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Divider(
               thickness: 1,
               color: Colors.grey,
@@ -235,7 +236,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
             child: GestureDetector(
               onTap: () {},
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Chính sách',
                     style: TextStyle(fontSize: 20),
@@ -250,8 +251,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Divider(
               thickness: 1,
               color: Colors.grey,
@@ -262,7 +263,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
             child: GestureDetector(
               onTap: () {},
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Trung tâm hỗ trợ',
                     style: TextStyle(fontSize: 20),
@@ -277,8 +278,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Divider(
               thickness: 1,
               color: Colors.grey,
@@ -289,7 +290,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
             child: GestureDetector(
               onTap: () {},
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Đăng xuất',
                     style: TextStyle(fontSize: 20),
@@ -304,8 +305,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Divider(
               thickness: 1,
               color: Colors.grey,
