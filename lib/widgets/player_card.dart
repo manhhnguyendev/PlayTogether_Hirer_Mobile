@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/player_model.dart';
 import 'package:playtogether_hirer/constants/my_color.dart' as my_colors;
+import 'package:playtogether_hirer/pages/player_profile_page.dart';
 
 class PlayerCard extends StatefulWidget {
   final double width, aspectRetio;
   final PlayerModel playerModel;
-  PlayerCard({
+  const PlayerCard({
     Key? key,
     this.width = 140,
     this.aspectRetio = 1.02,
@@ -25,7 +26,14 @@ class _PlayerCardState extends State<PlayerCard> {
         child: SizedBox(
             width: widget.width / 375 * size.width,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PlayerProfilePage(playerModel: widget.playerModel)),
+                );
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -51,18 +59,10 @@ class _PlayerCardState extends State<PlayerCard> {
                         widget.playerModel.firstname +
                             ' ' +
                             widget.playerModel.lastname,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ],
                   ),
-                  // Row(
-                  //   children: [
-                  //     Text(
-                  //       widget.playerModel.lastname,
-                  //       style: TextStyle(fontSize: 12, color: Colors.grey),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             )));

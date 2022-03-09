@@ -16,16 +16,13 @@ import 'package:playtogether_hirer/pages/take_user_categories_page.dart';
 
 final Map<String, WidgetBuilder> routes = {
   LoginPage.routeName: (context) => LoginPage(),
-  RegisterPage.routeName: (context) => RegisterPage(),
-  CompleteProfilePage.routeName: (context) => CompleteProfilePage(),
   ForgotPasswordPage.routeName: (context) => ForgotPasswordPage(),
   ChangePasswordPage.routeName: (context) => ChangePasswordPage(),
   UserCategoriesPage.routeName: (context) => UserCategoriesPage(),
-  PlayerProfilePage.routeName: (context) => PlayerProfilePage(),
   SendHiringRequestPage.routeName: (context) => SendHiringRequestPage(),
   HiringNegotiatingPage.routeName: (context) => HiringNegotiatingPage(),
-  HiringPage.routeName: (context) => HiringPage(),
   RatingAndCommentPage.routeName: (context) => RatingAndCommentPage(),
+  HiringPage.routeName: (context) => HiringPage(),
   SearchPage.routeName: (context) => SearchPage(),
   HistoryHiringDetail.routeName: (context) => HistoryHiringDetail(
         detailHiringModel: demoDetailHiring,

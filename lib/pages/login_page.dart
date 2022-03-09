@@ -145,8 +145,10 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, RegisterPage.routeName),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                ),
                 child: const Text(
                   'Tạo tài khoản?',
                   style: TextStyle(

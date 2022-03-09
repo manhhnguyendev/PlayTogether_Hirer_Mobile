@@ -28,9 +28,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
   final List listErrorLastName = [''];
   final List listErrorBirthday = ['', birthdayNullError];
   final List listErrorCity = [''];
-  final controllerFirstName = TextEditingController();
-  final controllerLastName = TextEditingController();
-  final controllerDateOfBirth = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final dateOfBirthController = TextEditingController();
   late String city;
   late DateTime dateOfBirth;
   late bool gender;
@@ -143,13 +143,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
   void initState() {
     dateDisplay = ValueNotifier<String>("Ngày sinh của bạn");
     dateDisplay.addListener(() {
-      controllerDateOfBirth.text = dateDisplay.value;
-      if (controllerDateOfBirth.text != "Ngày sinh của bạn" &&
-          controllerDateOfBirth.text.isNotEmpty &&
+      dateOfBirthController.text = dateDisplay.value;
+      if (dateOfBirthController.text != "Ngày sinh của bạn" &&
+          dateOfBirthController.text.isNotEmpty &&
           listErrorBirthday.contains(birthdayNullError)) {
         listErrorBirthday.remove(birthdayNullError);
-      } else if ((controllerDateOfBirth.text == "Ngày sinh của bạn" ||
-              controllerDateOfBirth.text.isEmpty) &&
+      } else if ((dateOfBirthController.text == "Ngày sinh của bạn" ||
+              dateOfBirthController.text.isEmpty) &&
           !listErrorBirthday.contains(birthdayNullError)) {
         listErrorBirthday.add(birthdayNullError);
       }
@@ -164,9 +164,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
       checkFirstTime = false;
       String dateConvert = DateFormat('dd/MM/yyyy')
           .format(DateTime.parse(widget.hirerModel.dateOfBirth));
-      controllerFirstName.text = widget.hirerModel.firstname;
-      controllerLastName.text = widget.hirerModel.lastname;
-      controllerDateOfBirth.text = dateConvert;
+      firstNameController.text = widget.hirerModel.firstname;
+      lastNameController.text = widget.hirerModel.lastname;
+      dateOfBirthController.text = dateConvert;
       city = widget.hirerModel.city;
       gender = widget.hirerModel.gender;
     }
@@ -217,8 +217,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     children: [
                       SizedBox(
                         child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(widget.hirerModel.avatar),
+                          backgroundImage: AssetImage(profileLink),
+                          //backgroundImage: NetworkImage(widget.hirerModel.avatar),
                         ),
                       ),
                       Positioned(
@@ -364,7 +364,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   TextFormField buildFirstNameField() {
     return TextFormField(
-      controller: controllerFirstName,
+      controller: firstNameController,
       maxLength: 30,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => firstName = newValue!,
@@ -407,7 +407,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   TextFormField buildLastNameField() {
     return TextFormField(
-      controller: controllerLastName,
+      controller: lastNameController,
       maxLength: 30,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => lastName = newValue!,
@@ -493,7 +493,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   TextFormField buildBirthdayField() {
     return TextFormField(
-      controller: controllerDateOfBirth,
+      controller: dateOfBirthController,
       onSaved: (newValue) {
         dateDisplay.value = newValue!;
       },

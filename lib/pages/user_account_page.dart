@@ -36,7 +36,8 @@ class _UserAccountPageState extends State<UserAccountPage> {
                   height: 150,
                   width: 150,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(widget.hirerModel.avatar),
+                    backgroundImage: AssetImage(profileLink),
+                    //backgroundImage: NetworkImage(widget.hirerModel.avatar),
                   ),
                 ),
                 Padding(
