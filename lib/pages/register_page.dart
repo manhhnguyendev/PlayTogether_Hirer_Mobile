@@ -1,35 +1,44 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playtogether_hirer/constants/const.dart';
-import 'package:playtogether_hirer/pages/complete_profile_page.dart';
+import 'package:playtogether_hirer/models/register_model.dart';
+import 'package:playtogether_hirer/pages/complete_register_page.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:email_auth/email_auth.dart';
 
 class RegisterPage extends StatefulWidget {
-  static String routeName = "register";
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  bool submitValid = false;
-  final TextEditingController _emailcontroller = TextEditingController();
-  final TextEditingController _otpcontroller = TextEditingController();
+  final emailController = TextEditingController();
+  final otpController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final List listErrorEmail = [''];
+  final List listErrorPass = [''];
+  final List listErrorConfirm = [''];
+  final List listErrorOTP = [''];
   String email = "";
   String password = "";
   String confirmPass = "";
   String otpCode = "";
   String verifyEmail = "";
-  final List listErrorEmail = [''];
-  final List listErrorPass = [''];
-  final List listErrorConfirm = [''];
-  final List listErrorOTP = [''];
+  bool submitValid = false;
   bool passObsecure = true;
   bool confirmObsecure = true;
+  bool confirmEmail = false;
+  TempRegisterModel tempRegisterModel = TempRegisterModel(
+      email: "", password: "", confirmPassword: "", confirmEmail: false);
 
   void addError(List inputListError, {String? error}) {
     if (!inputListError.contains(error)) {
@@ -52,16 +61,16 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
   }
 
-  void verify() {
-    EmailAuth.validate(
-        receiverMail: _emailcontroller.value.text,
-        userOTP: _otpcontroller.value.text);
+  bool verify() {
+    return EmailAuth.validate(
+        receiverMail: emailController.value.text,
+        userOTP: otpController.value.text);
   }
 
   void sendOtp() async {
     EmailAuth.sessionName = "Play Together";
     bool result =
-        await EmailAuth.sendOtp(receiverMail: _emailcontroller.value.text);
+        await EmailAuth.sendOtp(receiverMail: emailController.value.text);
     if (result) {
       setState(() {
         submitValid = true;
@@ -72,7 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -89,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fit: BoxFit.cover)),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -153,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         color: const Color.fromRGBO(
                                             165, 165, 165, 1),
                                         onPressed: () {
-                                          verify();
+                                          confirmEmail = verify();
                                         },
                                         child: const Text("Xác thực",
                                             style: TextStyle(
@@ -175,7 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          buildConfirmField(),
+                          buildConfirmPasswordField(),
                           FormError(listError: listErrorConfirm),
                         ],
                       ),
@@ -187,14 +195,25 @@ class _RegisterPageState extends State<RegisterPage> {
                           print("_formKey.currentState is null!");
                         } else if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          if (listErrorEmail.length ==
-                                  1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                          if (listErrorEmail.length == 1 &&
                               listErrorPass.length == 1 &&
                               listErrorConfirm.length == 1 &&
-                              listErrorOTP.length == 1) {
-                            Navigator.pushNamed(
-                                context, CompleteProfilePage.routeName);
-                          }
+                              listErrorOTP.length == 1) {}
+                          setState(() {
+                            tempRegisterModel.email = emailController.text;
+                            tempRegisterModel.confirmEmail = confirmEmail;
+                            tempRegisterModel.password =
+                                passwordController.text;
+                            tempRegisterModel.confirmPassword =
+                                confirmPasswordController.text;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CompleteRegisterPage(
+                                        tempRegisterModel: tempRegisterModel,
+                                      )),
+                            );
+                          });
                         }
                       },
                     ),
@@ -231,7 +250,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   TextFormField buildEmailField() {
     return TextFormField(
-      controller: _emailcontroller,
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
@@ -277,6 +296,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   TextFormField buildPasswordField() {
     return TextFormField(
+      controller: passwordController,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         password = value;
@@ -328,8 +348,9 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  TextFormField buildConfirmField() {
+  TextFormField buildConfirmPasswordField() {
     return TextFormField(
+      controller: confirmPasswordController,
       onSaved: (newValue) => confirmPass = newValue!,
       onChanged: (value) {
         confirmPass = value;
@@ -382,7 +403,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   TextFormField buildOTPField() {
     return TextFormField(
-      controller: _otpcontroller,
+      controller: otpController,
       maxLength: 6,
       onSaved: (newValue) => otpCode = newValue!,
       onChanged: (value) {

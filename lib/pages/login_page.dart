@@ -14,7 +14,6 @@ import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class LoginPage extends StatefulWidget {
-  static String routeName = "login";
   const LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -145,8 +144,10 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, RegisterPage.routeName),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                ),
                 child: const Text(
                   'Tạo tài khoản?',
                   style: TextStyle(
@@ -159,8 +160,11 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, ForgotPasswordPage.routeName),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ForgotPasswordPage()),
+                ),
                 child: const Text(
                   'Quên mật khẩu?',
                   style: TextStyle(

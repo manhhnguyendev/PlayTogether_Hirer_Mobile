@@ -1,27 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/constants/const.dart';
+import 'package:playtogether_hirer/models/register_model.dart';
+import 'package:playtogether_hirer/pages/login_page.dart';
+import 'package:playtogether_hirer/services/register_service.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:playtogether_hirer/widgets/main_goback_button.dart';
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
-class CompleteProfilePage extends StatefulWidget {
-  static String routeName = "complete_profile";
-  const CompleteProfilePage({Key? key}) : super(key: key);
+class CompleteRegisterPage extends StatefulWidget {
+  final TempRegisterModel tempRegisterModel;
+  const CompleteRegisterPage({Key? key, required this.tempRegisterModel})
+      : super(key: key);
 
   @override
-  _CompleteProfilePageState createState() => _CompleteProfilePageState();
+  _CompleteRegisterPageState createState() => _CompleteRegisterPageState();
 }
 
-class _CompleteProfilePageState extends State<CompleteProfilePage> {
-  final _formKey = GlobalKey<FormState>();
-  bool checkFirstTime = true;
-  final initialDate = DateTime.now();
+class _CompleteRegisterPageState extends State<CompleteRegisterPage> {
   String firstName = "";
   String lastName = "";
-  late DateTime rawBirthday;
-  ValueNotifier<String> notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
+  final _formKey = GlobalKey<FormState>();
+  final initialDate = DateTime.now();
+  final List listErrorFirstName = [''];
+  final List listErrorLastName = [''];
+  final List listErrorBirthday = ['', birthdayNullError];
+  final List listErrorProvince = [''];
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final dateOfBirthController = TextEditingController();
+  RegisterModel register = RegisterModel(
+      email: "",
+      password: "",
+      confirmPassword: "",
+      firstname: "",
+      lastname: "",
+      city: "",
+      dateOfBirth: "",
+      gender: false,
+      confirmEmail: false);
+  late DateTime dateOfBirth;
+  String? city;
   bool gender = true;
-  final tec = TextEditingController();
+  bool checkFirstTime = true;
+  ValueNotifier<String> dateDisplay =
+      ValueNotifier<String>("Ngày sinh của bạn");
   List<DropdownMenuItem<String>> listDrop = [];
   List<String> drop = [
     'An Giang',
@@ -88,11 +111,6 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     'Vĩnh Phúc',
     'Yên Bái',
   ];
-  String? province;
-  final List listErrorFirstName = [''];
-  final List listErrorLastName = [''];
-  final List listErrorBirthday = ['', birthdayNullError];
-  final List listErrorProvince = [''];
 
   void loadData() {
     listDrop = [];
@@ -121,24 +139,25 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   }
 
   void convertBirthday() {
-    if (rawBirthday == null) {
-      notiBirth.value = "Ngày sinh của bạn";
+    if (dateOfBirth == null) {
+      dateDisplay.value = "Ngày sinh của bạn";
     } else {
-      notiBirth.value =
-          '${rawBirthday.day}/${rawBirthday.month}/${rawBirthday.year}';
+      dateDisplay.value =
+          '${dateOfBirth.day}/${dateOfBirth.month}/${dateOfBirth.year}';
     }
   }
 
   @override
   void initState() {
-    notiBirth = ValueNotifier<String>("Ngày sinh của bạn");
-    notiBirth.addListener(() {
-      tec.text = notiBirth.value;
-      if (tec.text != "Ngày sinh của bạn" &&
-          tec.text.isNotEmpty &&
+    dateDisplay = ValueNotifier<String>("Ngày sinh của bạn");
+    dateDisplay.addListener(() {
+      dateOfBirthController.text = dateDisplay.value;
+      if (dateOfBirthController.text != "Ngày sinh của bạn" &&
+          dateOfBirthController.text.isNotEmpty &&
           listErrorBirthday.contains(birthdayNullError)) {
         listErrorBirthday.remove(birthdayNullError);
-      } else if ((tec.text == "Ngày sinh của bạn" || tec.text.isEmpty) &&
+      } else if ((dateOfBirthController.text == "Ngày sinh của bạn" ||
+              dateOfBirthController.text.isEmpty) &&
           !listErrorBirthday.contains(birthdayNullError)) {
         listErrorBirthday.add(birthdayNullError);
       }
@@ -169,7 +188,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     fit: BoxFit.cover)),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Form(
               key: _formKey,
               child: Column(
@@ -278,14 +297,29 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                           print("_formKey.currentState is null!");
                         } else if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          if (listErrorFirstName.length ==
-                                  1 && //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
+                          if (listErrorFirstName.length == 1 &&
                               listErrorLastName.length == 1 &&
                               listErrorProvince.length == 1 &&
-                              listErrorBirthday.length == 1) {
-                            print("ALL VALID");
-                          }
+                              listErrorBirthday.length == 1) {}
                         }
+                        setState(() {
+                          register.email = widget.tempRegisterModel.email;
+                          register.confirmEmail =
+                              widget.tempRegisterModel.confirmEmail;
+                          register.password = widget.tempRegisterModel.password;
+                          register.confirmPassword =
+                              widget.tempRegisterModel.confirmPassword;
+                          register.firstname = firstNameController.text;
+                          register.lastname = lastNameController.text;
+                          register.dateOfBirth = dateOfBirth.toString();
+                          register.gender = gender;
+                          register.city = city!;
+                          Future<RegisterModel?> registerModelFuture =
+                              RegisterService().register(register);
+                          registerModelFuture.then((hirer) {
+                            helper.pushInto(context, const LoginPage(), true);
+                          });
+                        });
                       }),
                   GoBackButton(
                       text: "QUAY LẠI ",
@@ -325,6 +359,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
 
   TextFormField buildFirstNameField() {
     return TextFormField(
+      controller: firstNameController,
       maxLength: 30,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => firstName = newValue!,
@@ -367,6 +402,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
 
   TextFormField buildLastNameField() {
     return TextFormField(
+      controller: lastNameController,
       maxLength: 30,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => lastName = newValue!,
@@ -416,13 +452,12 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
             child: Row(
               children: [
                 Radio(
-                    activeColor: Color(0xff320444),
+                    activeColor: const Color(0xff320444),
                     value: true,
                     groupValue: gender,
                     onChanged: (value) {
                       setState(() {
                         gender = true;
-                        print("Nam");
                       });
                     }),
                 const Text("Nam")
@@ -434,13 +469,12 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
             child: Row(
               children: [
                 Radio(
-                    activeColor: Color(0xff320444),
+                    activeColor: const Color(0xff320444),
                     value: false,
                     groupValue: gender,
                     onChanged: (value) {
                       setState(() {
                         gender = false;
-                        print("Nữ");
                       });
                     }),
                 const Text("Nữ"),
@@ -454,9 +488,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
 
   TextFormField buildBirthdayField() {
     return TextFormField(
-      controller: tec,
+      controller: dateOfBirthController,
       onSaved: (newValue) {
-        notiBirth.value = newValue!;
+        dateDisplay.value = newValue!;
       },
       decoration: const InputDecoration(
         counterText: "",
@@ -486,9 +520,8 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
           firstDate: DateTime(DateTime.now().year - 100),
           lastDate: DateTime(DateTime.now().year + 1),
         ).then((date) {
-          rawBirthday = date!;
+          dateOfBirth = date!;
           convertBirthday();
-          print(notiBirth.value);
         });
       },
     );
@@ -499,16 +532,16 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton(
           isExpanded: true,
-          value: province,
+          value: city,
           items: listDrop,
           hint: const Text('Thành phố của bạn'),
           iconSize: 0.0,
           elevation: 16,
           onChanged: (value) {
-            province = value as String;
+            city = value as String;
             setState(() {
-              province = value;
-              print(province);
+              city = value;
+              print(city);
             });
           },
         ),

@@ -19,7 +19,7 @@ class _NotificationCardState extends State<NotificationCard> {
     String startTime =
         DateFormat('hh:mm a').format(widget.notificationModel.datetime);
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+      padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
       child: GestureDetector(
         onTap: () {},
         child: Column(
@@ -34,25 +34,25 @@ class _NotificationCardState extends State<NotificationCard> {
                   children: [
                     Text(
                       widget.notificationModel.title,
-                      style: TextStyle(fontSize: 18, color: Colors.black),
+                      style: const TextStyle(fontSize: 18, color: Colors.black),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       widget.notificationModel.message,
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      style: const TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   date + ', ' + startTime,
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  style: const TextStyle(fontSize: 15, color: Colors.black),
                 ),
               ],
             ),
-            Divider(
+            const Divider(
               thickness: 0.5,
               color: Colors.black,
             )

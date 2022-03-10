@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:playtogether_hirer/models/player_model.dart';
 import 'package:playtogether_hirer/pages/send_hiring_request_page.dart';
 
 import 'package:playtogether_hirer/widgets/second_main_button.dart';
 
 class PlayerProfilePage extends StatefulWidget {
-  static String routeName = "PlayerProfile";
-  const PlayerProfilePage({Key? key}) : super(key: key);
+  final PlayerModel playerModel;
+  const PlayerProfilePage({Key? key, required this.playerModel})
+      : super(key: key);
 
   @override
   State<PlayerProfilePage> createState() => _PlayerProfilePageState();
@@ -33,14 +35,14 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
             child: FlatButton(
-              child: Icon(Icons.arrow_back_ios),
+              child: const Icon(Icons.arrow_back_ios),
               onPressed: () {},
             ),
           ),
@@ -60,17 +62,17 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                       backgroundImage: AssetImage(profileLink),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  Text(
+                  const Text(
                     "Player name",
                     style: TextStyle(fontSize: 20),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
-                  Text(
+                  const Text(
                     "status",
                     style: TextStyle(fontSize: 10),
                   ),
@@ -80,7 +82,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
               child: Row(
-                children: [
+                children: const [
                   Text(
                     'Hình ảnh',
                     style:
@@ -96,7 +98,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SingleChildScrollView(
@@ -105,12 +107,12 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                   children: List.generate(listPlayerImage.length,
                       (index) => buildImageItem(listPlayerImage[index]))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
               height: 1,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                 top: BorderSide(
                   color: Colors.grey,
@@ -125,7 +127,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                 child: Row(
                   children: [
                     Row(
-                      children: [
+                      children: const [
                         Text(
                           'Đánh giá',
                           style: TextStyle(
@@ -144,11 +146,11 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             'Xem chi tiết',
                             style: TextStyle(fontSize: 14, color: Colors.grey),
@@ -169,7 +171,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
             ),
             Container(
               height: 1,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                 top: BorderSide(
                   color: Colors.grey,
@@ -181,7 +183,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
               padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
               child: Container(
                 alignment: Alignment.topLeft,
-                child: Text(
+                child: const Text(
                   'Thông tin',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
                 ),
@@ -191,7 +193,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
               child: Container(
                 alignment: Alignment.topLeft,
-                child: Text(
+                child: const Text(
                   'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
                 ),
@@ -199,7 +201,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
             ),
             Container(
               height: 1,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                 top: BorderSide(
                   //                   <--- left side
@@ -208,14 +210,14 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                 ),
               )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
               child: Container(
                 alignment: Alignment.topLeft,
-                child: Text(
+                child: const Text(
                   'Kỹ năng',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
                 ),
@@ -235,7 +237,7 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
             ),
             Container(
               height: 1,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                 top: BorderSide(
                   //                   <--- left side
@@ -244,14 +246,14 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
                 ),
               )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
               child: Container(
                 alignment: Alignment.topLeft,
-                child: Text(
+                child: const Text(
                   'Top người thuê',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
                 ),
@@ -277,11 +279,11 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
           padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           child: Row(
             children: [
-              Text(
+              const Text(
                 '500.000' + 'đ/h',
                 style: TextStyle(fontSize: 22, color: Color(0xff320444)),
               ),
-              Spacer(),
+              const Spacer(),
               SecondMainButton(
                   text: 'Thuê',
                   onpress: () {
@@ -317,9 +319,10 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
             children: [
               Text(
                 gameAndRank,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               )
             ],
@@ -335,9 +338,10 @@ class _PlayerProfilePageState extends State<PlayerProfilePage> {
             children: [
               Text(
                 '#' + count.toString() + '. ' + hirerName,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+                style: const TextStyle(
+                    fontSize: 15, fontWeight: FontWeight.normal),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               )
             ],

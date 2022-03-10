@@ -2,7 +2,10 @@
     "git.ignoreLimitWarning": true,
     "cSpell.words": [
         "Appbar",
+        "LTRB",
         "obsecure",
-        "playtogether"
+        "playtogether",
+        "playtogetherlogo",
+        "RGBO"
     ]
 }

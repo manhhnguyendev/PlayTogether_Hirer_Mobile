@@ -3,21 +3,20 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:playtogether_hirer/constants/api_url.dart' as apiUrl;
 import 'package:playtogether_hirer/constants/config_json.dart' as configJson;
-import 'package:playtogether_hirer/models/login_google_model.dart';
-import 'package:playtogether_hirer/models/token_model.dart';
+import 'package:playtogether_hirer/models/register_model.dart';
 
-class LoginGoogleService {
-  Future<TokenModel?> loginGoogle(LoginGoogleModel loginGoogle) async {
+class RegisterService {
+  Future<RegisterModel?> register(RegisterModel registerModel) async {
     Response response;
-    TokenModel? result;
+    RegisterModel? result;
     try {
       response = await post(
-        Uri.parse('${apiUrl.accounts}/login-google-hirer'),
+        Uri.parse('${apiUrl.accounts}/register-hirer'),
         headers: configJson.header(),
-        body: jsonEncode(loginGoogle.toJson()),
+        body: jsonEncode(registerModel.toJson()),
       );
       if (response.statusCode == 200) {
-        result = TokenModel.fromJson(json.decode(response.body));
+        result = RegisterModel.fromJson(json.decode(response.body));
       }
     } on Exception {
       rethrow;

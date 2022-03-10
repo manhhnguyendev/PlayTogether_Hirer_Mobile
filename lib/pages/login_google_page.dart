@@ -67,29 +67,30 @@ class _GoogleButtonState extends State<LoginGooglePage> {
                               result.authentication.then((googleKey) {
                                 loginGoogle.providerName = providerName;
                                 loginGoogle.idToken = googleKey.idToken;
-                              });
-                            });
-                            Future<TokenModel?> loginGoogleModelFuture =
-                                LoginGoogleService().loginGoogle(loginGoogle);
-                            loginGoogleModelFuture.then((value) {
-                              if (value != null) {
-                                tokenModel = value;
-                                setState(() {
-                                  Future<HirerModel?> hirerModelFuture =
-                                      HirerService()
-                                          .getHirerProfile(value.message);
-                                  print(value.message);
-                                  hirerModelFuture.then((hirer) {
+                                Future<TokenModel?> loginGoogleModelFuture =
+                                    LoginGoogleService()
+                                        .loginGoogle(loginGoogle);
+                                loginGoogleModelFuture.then((value) {
+                                  if (value != null) {
+                                    tokenModel = value;
                                     setState(() {
-                                      if (hirer != null) {
-                                        hirerModel = hirer;
-                                        helper.pushInto(
-                                            context, getScreen(), true);
-                                      }
+                                      Future<HirerModel?> hirerModelFuture =
+                                          HirerService()
+                                              .getHirerProfile(value.message);
+                                      print(value.message);
+                                      hirerModelFuture.then((hirer) {
+                                        setState(() {
+                                          if (hirer != null) {
+                                            hirerModel = hirer;
+                                            helper.pushInto(
+                                                context, getScreen(), true);
+                                          }
+                                        });
+                                      });
                                     });
-                                  });
+                                  }
                                 });
-                              }
+                              });
                             });
                           });
                         },
