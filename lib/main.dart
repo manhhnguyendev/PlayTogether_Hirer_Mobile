@@ -1,18 +1,20 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/pages/login_page.dart';
-import 'package:playtogether_hirer/helpers/routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: LoginPage.routeName,
-      routes: routes,
+      home: LoginPage(),
     );
   }
 }

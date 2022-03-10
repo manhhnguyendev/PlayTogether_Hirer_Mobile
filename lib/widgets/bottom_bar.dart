@@ -6,7 +6,7 @@ import 'package:playtogether_hirer/models/token_model.dart';
 import 'package:playtogether_hirer/pages/home_page.dart';
 import 'package:playtogether_hirer/pages/history_page.dart';
 import 'package:playtogether_hirer/pages/notification_page.dart';
-import 'package:playtogether_hirer/pages/user_account_page.dart';
+import 'package:playtogether_hirer/pages/personal_page.dart';
 
 class BottomBar extends StatefulWidget {
   final int bottomBarIndex;
@@ -89,7 +89,7 @@ class _BottomBarState extends State<BottomBar> {
           } else if (index == 3) {
             helper.pushInto(
               context,
-              UserAccountPage(
+              PersonalPage(
                 hirerModel: widget.hirerModel,
                 tokenModel: widget.tokenModel,
               ),

@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/token_model.dart';
-import 'package:playtogether_hirer/pages/user_profile_details_page.dart';
+import 'package:playtogether_hirer/pages/hirer_profile_page.dart';
 import 'package:playtogether_hirer/widgets/bottom_bar.dart';
 
-class UserAccountPage extends StatefulWidget {
+class PersonalPage extends StatefulWidget {
   final HirerModel hirerModel;
   final TokenModel tokenModel;
 
-  const UserAccountPage({
+  const PersonalPage({
     Key? key,
     required this.hirerModel,
     required this.tokenModel,
   }) : super(key: key);
 
   @override
-  _UserAccountPageState createState() => _UserAccountPageState();
+  _PersonalPageState createState() => _PersonalPageState();
 }
 
-class _UserAccountPageState extends State<UserAccountPage> {
-  String profileLink = "assets/images/defaultprofile.png";
+class _PersonalPageState extends State<PersonalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +31,12 @@ class _UserAccountPageState extends State<UserAccountPage> {
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 150,
                   width: 150,
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(profileLink),
-                    //backgroundImage: NetworkImage(widget.hirerModel.avatar),
+                    backgroundImage: NetworkImage(
+                        "https://firebasestorage.googleapis.com/v0/b/play-together-flutter.appspot.com/o/avatar%2Fdefault-profile-picture.jpg?alt=media&token=79641b44-454b-43e0-8c57-85d1431fcfce"),
                   ),
                 ),
                 Padding(
@@ -60,7 +59,7 @@ class _UserAccountPageState extends State<UserAccountPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserProfilePage(
+                                builder: (context) => HirerProfilePage(
                                     hirerModel: widget.hirerModel,
                                     tokenModel: widget.tokenModel)),
                           );

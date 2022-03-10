@@ -6,20 +6,19 @@ import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/profile_accept_button.dart';
 import 'package:intl/intl.dart';
 
-class UserProfilePage extends StatefulWidget {
+class HirerProfilePage extends StatefulWidget {
   final HirerModel hirerModel;
   final TokenModel tokenModel;
 
-  const UserProfilePage(
+  const HirerProfilePage(
       {Key? key, required this.hirerModel, required this.tokenModel})
       : super(key: key);
 
   @override
-  _UserProfilePageState createState() => _UserProfilePageState();
+  _HirerProfilePageState createState() => _HirerProfilePageState();
 }
 
-class _UserProfilePageState extends State<UserProfilePage> {
-  String profileLink = "assets/images/defaultprofile.png";
+class _HirerProfilePageState extends State<HirerProfilePage> {
   String firstName = "";
   String lastName = "";
   final _formKey = GlobalKey<FormState>();
@@ -215,10 +214,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     clipBehavior: Clip.none,
                     fit: StackFit.expand,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(profileLink),
-                          //backgroundImage: NetworkImage(widget.hirerModel.avatar),
+                          backgroundImage: NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/play-together-flutter.appspot.com/o/avatar%2Fdefault-profile-picture.jpg?alt=media&token=79641b44-454b-43e0-8c57-85d1431fcfce"),
                         ),
                       ),
                       Positioned(

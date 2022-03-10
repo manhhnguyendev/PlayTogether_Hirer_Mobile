@@ -3,7 +3,8 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playtogether_hirer/constants/const.dart';
-import 'package:playtogether_hirer/pages/complete_profile_page.dart';
+import 'package:playtogether_hirer/models/register_model.dart';
+import 'package:playtogether_hirer/pages/complete_register_page.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:email_auth/email_auth.dart';
@@ -36,6 +37,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool passObsecure = true;
   bool confirmObsecure = true;
   bool confirmEmail = false;
+  TempRegisterModel tempRegisterModel = TempRegisterModel(
+      email: "", password: "", confirmPassword: "", confirmEmail: false);
 
   void addError(List inputListError, {String? error}) {
     if (!inputListError.contains(error)) {
@@ -195,14 +198,22 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (listErrorEmail.length == 1 &&
                               listErrorPass.length == 1 &&
                               listErrorConfirm.length == 1 &&
-                              listErrorOTP.length == 1) {
+                              listErrorOTP.length == 1) {}
+                          setState(() {
+                            tempRegisterModel.email = emailController.text;
+                            tempRegisterModel.confirmEmail = confirmEmail;
+                            tempRegisterModel.password =
+                                passwordController.text;
+                            tempRegisterModel.confirmPassword =
+                                confirmPasswordController.text;
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CompleteProfilePage()),
+                                  builder: (context) => CompleteRegisterPage(
+                                        tempRegisterModel: tempRegisterModel,
+                                      )),
                             );
-                          }
+                          });
                         }
                       },
                     ),

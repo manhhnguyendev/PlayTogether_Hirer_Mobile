@@ -6,7 +6,6 @@ import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
-  static String routeName = "forgotPassword";
   const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
@@ -144,10 +143,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         } else if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           if (listErrorEmail.length == 1 &&
-                              //vi` luc khai bao 4 cai list , co 1 phan tu "" san trong list nen length = 1;
                               listErrorOTP.length == 1) {
-                            Navigator.pushNamed(
-                                context, ChangePasswordPage.routeName);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ChangePasswordPage()),
+                            );
                           }
                         }
                       },

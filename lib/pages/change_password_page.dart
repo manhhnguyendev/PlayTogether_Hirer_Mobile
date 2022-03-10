@@ -4,7 +4,6 @@ import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/main_button.dart';
 
 class ChangePasswordPage extends StatefulWidget {
-  static String routeName = 'change_password';
   const ChangePasswordPage({Key? key}) : super(key: key);
 
   @override

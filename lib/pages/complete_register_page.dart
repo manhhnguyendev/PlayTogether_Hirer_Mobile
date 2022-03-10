@@ -8,21 +8,18 @@ import 'package:playtogether_hirer/widgets/main_button.dart';
 import 'package:playtogether_hirer/widgets/main_goback_button.dart';
 import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
-class CompleteProfilePage extends StatefulWidget {
-  const CompleteProfilePage({Key? key}) : super(key: key);
+class CompleteRegisterPage extends StatefulWidget {
+  final TempRegisterModel tempRegisterModel;
+  const CompleteRegisterPage({Key? key, required this.tempRegisterModel})
+      : super(key: key);
 
   @override
-  _CompleteProfilePageState createState() => _CompleteProfilePageState();
+  _CompleteRegisterPageState createState() => _CompleteRegisterPageState();
 }
 
-class _CompleteProfilePageState extends State<CompleteProfilePage> {
+class _CompleteRegisterPageState extends State<CompleteRegisterPage> {
   String firstName = "";
   String lastName = "";
-  String email = "manhnguyendev3@gmail.com";
-  bool confirmEmail = true;
-  String password = "Manh1234@";
-  String confirmPassword = "Manh1234@";
-
   final _formKey = GlobalKey<FormState>();
   final initialDate = DateTime.now();
   final List listErrorFirstName = [''];
@@ -306,13 +303,15 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                               listErrorBirthday.length == 1) {}
                         }
                         setState(() {
-                          register.email = email;
-                          register.confirmEmail = confirmEmail;
-                          register.password = password;
-                          register.confirmPassword = confirmPassword;
+                          register.email = widget.tempRegisterModel.email;
+                          register.confirmEmail =
+                              widget.tempRegisterModel.confirmEmail;
+                          register.password = widget.tempRegisterModel.password;
+                          register.confirmPassword =
+                              widget.tempRegisterModel.confirmPassword;
                           register.firstname = firstNameController.text;
                           register.lastname = lastNameController.text;
-                          register.dateOfBirth = dateOfBirthController.text;
+                          register.dateOfBirth = dateOfBirth.toString();
                           register.gender = gender;
                           register.city = city!;
                           Future<RegisterModel?> registerModelFuture =
