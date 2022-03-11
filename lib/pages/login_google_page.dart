@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/login_google_model.dart';
 import 'package:playtogether_hirer/models/token_model.dart';
@@ -12,6 +11,7 @@ import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class LoginGooglePage extends StatefulWidget {
   const LoginGooglePage({Key? key}) : super(key: key);
+
   @override
   _GoogleButtonState createState() => _GoogleButtonState();
 }
@@ -64,9 +64,9 @@ class _GoogleButtonState extends State<LoginGooglePage> {
                         onPressed: () {
                           setState(() {
                             _googleSignIn.signIn().then((result) {
-                              result.authentication.then((googleKey) {
+                              result!.authentication.then((googleKey) {
                                 loginGoogle.providerName = providerName;
-                                loginGoogle.idToken = googleKey.idToken;
+                                loginGoogle.idToken = googleKey.idToken!;
                                 Future<TokenModel?> loginGoogleModelFuture =
                                     LoginGoogleService()
                                         .loginGoogle(loginGoogle);
@@ -77,7 +77,8 @@ class _GoogleButtonState extends State<LoginGooglePage> {
                                       Future<HirerModel?> hirerModelFuture =
                                           HirerService()
                                               .getHirerProfile(value.message);
-                                      print(value.message);
+                                      print("Đăng nhập thành công " +
+                                          value.message);
                                       hirerModelFuture.then((hirer) {
                                         setState(() {
                                           if (hirer != null) {

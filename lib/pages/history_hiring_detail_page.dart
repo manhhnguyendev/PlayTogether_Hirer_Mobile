@@ -5,6 +5,7 @@ import 'package:playtogether_hirer/models/detail_hiring_model.dart';
 class HistoryHiringDetail extends StatefulWidget {
   static String routeName = 'HistoryHiringDetail';
   final DetailHiringModel detailHiringModel;
+
   const HistoryHiringDetail({Key? key, required this.detailHiringModel})
       : super(key: key);
 

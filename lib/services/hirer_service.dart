@@ -23,17 +23,18 @@ class HirerService {
     return result;
   }
 
-  Future<bool> updateHirerProfile(
-      String id, HirerModel hirerModel, dynamic token) async {
+  Future<bool?> updateHirerProfile(
+      String id, HirerUpdateModel hirerUpdateModel, dynamic token) async {
     Response response;
-    bool result = false;
+    bool? result;
     try {
       response = await put(
         Uri.parse('${apiUrl.hirers}/$id'),
         headers: configJson.headerAuth(token),
-        body: jsonEncode(hirerModel.toJson()),
+        body: jsonEncode(hirerUpdateModel.toJson()),
       );
-      if (response.statusCode == 200) {
+
+      if (response.statusCode == 204) {
         result = true;
       }
     } on Exception {

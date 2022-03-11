@@ -5,6 +5,7 @@ import 'package:playtogether_hirer/pages/history_hiring_detail_page.dart';
 
 class HistoryHiringCard extends StatefulWidget {
   final HistoryHiringModel historyHiringModel;
+
   const HistoryHiringCard({Key? key, required this.historyHiringModel})
       : super(key: key);
 

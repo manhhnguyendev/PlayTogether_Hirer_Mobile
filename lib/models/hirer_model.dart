@@ -45,3 +45,40 @@ class HirerModel {
         "id": id,
       };
 }
+
+class HirerUpdateModel {
+  String firstname;
+  String lastname;
+  String dateOfBirth;
+  String city;
+  bool gender;
+  String avatar;
+
+  HirerUpdateModel({
+    required this.firstname,
+    required this.lastname,
+    required this.dateOfBirth,
+    required this.city,
+    required this.gender,
+    required this.avatar,
+  });
+
+  factory HirerUpdateModel.fromJson(Map<String, dynamic> json) =>
+      HirerUpdateModel(
+        firstname: json['firstname'] as String,
+        lastname: json['lastname'] as String,
+        dateOfBirth: json['dateOfBirth'] as String,
+        city: json['city'] as String,
+        gender: json['gender'] as bool,
+        avatar: json['avatar'] as String,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "firstname": firstname,
+        "lastname": lastname,
+        "dateOfBirth": dateOfBirth,
+        "city": city,
+        "gender": gender,
+        "avatar": avatar,
+      };
+}

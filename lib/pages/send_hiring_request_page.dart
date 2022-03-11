@@ -7,6 +7,7 @@ class SendHiringRequestPage extends StatefulWidget {
   static String routeName = "HiringNegotiation";
 
   const SendHiringRequestPage({Key? key}) : super(key: key);
+
   @override
   _SendHiringRequestPageState createState() => _SendHiringRequestPageState();
 }

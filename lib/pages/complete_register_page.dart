@@ -10,6 +10,7 @@ import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 
 class CompleteRegisterPage extends StatefulWidget {
   final TempRegisterModel tempRegisterModel;
+
   const CompleteRegisterPage({Key? key, required this.tempRegisterModel})
       : super(key: key);
 
@@ -541,7 +542,6 @@ class _CompleteRegisterPageState extends State<CompleteRegisterPage> {
             city = value as String;
             setState(() {
               city = value;
-              print(city);
             });
           },
         ),

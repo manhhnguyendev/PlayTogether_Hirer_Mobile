@@ -9,6 +9,7 @@ class HistoryPage extends StatefulWidget {
   static String routeName = 'HistoryHiring';
   final HirerModel hirerModel;
   final TokenModel tokenModel;
+
   const HistoryPage(
       {Key? key, required this.hirerModel, required this.tokenModel})
       : super(key: key);

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playtogether_hirer/constants/const.dart';
@@ -56,21 +54,25 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  EmailAuth? emailAuth;
   @override
   void initState() {
     super.initState();
+    emailAuth = EmailAuth(
+      sessionName: "Play Together",
+    );
+    //emailAuth!.config(remoteServerConfiguration);
   }
 
   bool verify() {
-    return EmailAuth.validate(
-        receiverMail: emailController.value.text,
-        userOTP: otpController.value.text);
+    return emailAuth!.validateOtp(
+        recipientMail: emailController.value.text,
+        userOtp: otpController.value.text);
   }
 
   void sendOtp() async {
-    EmailAuth.sessionName = "Play Together";
-    bool result =
-        await EmailAuth.sendOtp(receiverMail: emailController.value.text);
+    bool result = await emailAuth!
+        .sendOtp(recipientMail: emailController.value.text, otpLength: 5);
     if (result) {
       setState(() {
         submitValid = true;

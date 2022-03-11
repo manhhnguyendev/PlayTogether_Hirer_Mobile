@@ -87,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         buildPasswordField(),
                         FormError(listError: listError),
-                        //SizedBox(height: 10,),
                       ],
                     ),
                   ),
@@ -217,8 +216,8 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: size.height / 50,
           ),
-          Padding(
-            padding: const EdgeInsets.all(10),
+          const Padding(
+            padding: EdgeInsets.all(10),
             child: LoginGooglePage(),
           ),
         ]),

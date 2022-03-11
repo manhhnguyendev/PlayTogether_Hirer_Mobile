@@ -5,7 +5,9 @@ import 'package:playtogether_hirer/widgets/main_goback_button.dart';
 
 class UserCategoriesPage extends StatefulWidget {
   static String routeName = 'user_needs_page1';
+
   const UserCategoriesPage({Key? key}) : super(key: key);
+
   @override
   _UserCategoriesPageState createState() => _UserCategoriesPageState();
 }

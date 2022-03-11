@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:playtogether_hirer/constants/const.dart';
 import 'package:playtogether_hirer/models/hirer_model.dart';
 import 'package:playtogether_hirer/models/token_model.dart';
+import 'package:playtogether_hirer/services/hirer_service.dart';
 import 'package:playtogether_hirer/widgets/login_error_form.dart';
 import 'package:playtogether_hirer/widgets/profile_accept_button.dart';
+import 'package:playtogether_hirer/helpers/helper.dart' as helper;
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
+import 'dart:io';
 
 class HirerProfilePage extends StatefulWidget {
   final HirerModel hirerModel;
@@ -19,6 +25,8 @@ class HirerProfilePage extends StatefulWidget {
 }
 
 class _HirerProfilePageState extends State<HirerProfilePage> {
+  String avatar =
+      "https://firebasestorage.googleapis.com/v0/b/play-together-flutter.appspot.com/o/avatar%2Fdefault-profile-picture.jpg?alt=media&token=79641b44-454b-43e0-8c57-85d1431fcfce";
   String firstName = "";
   String lastName = "";
   final _formKey = GlobalKey<FormState>();
@@ -30,6 +38,14 @@ class _HirerProfilePageState extends State<HirerProfilePage> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final dateOfBirthController = TextEditingController();
+  HirerUpdateModel hirerUpdateModel = HirerUpdateModel(
+    firstname: "",
+    lastname: "",
+    dateOfBirth: "",
+    city: "",
+    gender: false,
+    avatar: "",
+  );
   late String city;
   late DateTime dateOfBirth;
   late bool gender;
@@ -103,6 +119,29 @@ class _HirerProfilePageState extends State<HirerProfilePage> {
     'Yên Bái',
   ];
 
+  // File? _imageFile;
+  // final picker = ImagePicker();
+
+  // Future pickImage() async {
+  //   final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+  //   setState(() {
+  //     _imageFile = File(pickedFile!.path);
+  //     avatar = pickedFile.toString();
+  //   });
+  // }
+
+  // Future uploadImageToFirebase(BuildContext context) async {
+  //   String fileName = basename(_imageFile!.path);
+  //   Reference firebaseStorageRef =
+  //       FirebaseStorage.instance.ref().child('avatar/$fileName');
+  //   UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
+  //   TaskSnapshot taskSnapshot = await uploadTask;
+  //   taskSnapshot.ref.getDownloadURL().then(
+  //         (value) => value = avatar,
+  //       );
+  // }
+
   void loadData() {
     listDrop = [];
     listDrop = drop
@@ -160,14 +199,14 @@ class _HirerProfilePageState extends State<HirerProfilePage> {
   Widget build(BuildContext context) {
     if (checkFirstTime) {
       loadData();
-      checkFirstTime = false;
-      String dateConvert = DateFormat('dd/MM/yyyy')
-          .format(DateTime.parse(widget.hirerModel.dateOfBirth));
       firstNameController.text = widget.hirerModel.firstname;
       lastNameController.text = widget.hirerModel.lastname;
-      dateOfBirthController.text = dateConvert;
+      dateOfBirthController.text = DateFormat('dd/MM/yyyy')
+          .format(DateTime.parse(widget.hirerModel.dateOfBirth));
       city = widget.hirerModel.city;
       gender = widget.hirerModel.gender;
+      checkFirstTime = false;
+      dateOfBirth = DateTime.parse(widget.hirerModel.dateOfBirth);
     }
     return Scaffold(
       backgroundColor: Colors.white,
@@ -214,17 +253,18 @@ class _HirerProfilePageState extends State<HirerProfilePage> {
                     clipBehavior: Clip.none,
                     fit: StackFit.expand,
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "https://firebasestorage.googleapis.com/v0/b/play-together-flutter.appspot.com/o/avatar%2Fdefault-profile-picture.jpg?alt=media&token=79641b44-454b-43e0-8c57-85d1431fcfce"),
+                          backgroundImage: NetworkImage(avatar),
                         ),
                       ),
                       Positioned(
                           bottom: 0,
                           right: -25,
                           child: RawMaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              //pickImage();
+                            },
                             elevation: 2.0,
                             fillColor: const Color(0xFFF5F6F9),
                             child: const Icon(
@@ -351,9 +391,27 @@ class _HirerProfilePageState extends State<HirerProfilePage> {
                   if (listErrorFirstName.length == 1 &&
                       listErrorLastName.length == 1 &&
                       listErrorCity.length == 1 &&
-                      listErrorBirthday.length == 1) {
-                    print("ALL VALID");
-                  }
+                      listErrorBirthday.length == 1) {}
+                  setState(() {
+                    //uploadImageToFirebase(context);
+                    hirerUpdateModel.firstname = firstNameController.text;
+                    hirerUpdateModel.lastname = lastNameController.text;
+                    hirerUpdateModel.dateOfBirth = dateOfBirth.toString();
+                    hirerUpdateModel.city = city;
+                    hirerUpdateModel.gender = gender;
+                    hirerUpdateModel.avatar = avatar;
+                    Future<bool?> hirerUpdateModelFuture = HirerService()
+                        .updateHirerProfile(widget.hirerModel.id,
+                            hirerUpdateModel, widget.tokenModel.message);
+                    hirerUpdateModelFuture.then((hirer) {
+                      helper.pushInto(
+                          context,
+                          HirerProfilePage(
+                              hirerModel: widget.hirerModel,
+                              tokenModel: widget.tokenModel),
+                          true);
+                    });
+                  });
                 }
               }),
         ),
@@ -517,9 +575,9 @@ class _HirerProfilePageState extends State<HirerProfilePage> {
         ),
       ),
       onTap: () async {
-        FocusScope.of(context).requestFocus(FocusNode());
+        FocusScope.of(this.context).requestFocus(FocusNode());
         await showDatePicker(
-          context: context,
+          context: this.context,
           initialDate: DateTime.now(),
           firstDate: DateTime(DateTime.now().year - 100),
           lastDate: DateTime(DateTime.now().year + 1),

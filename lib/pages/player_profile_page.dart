@@ -6,6 +6,7 @@ import 'package:playtogether_hirer/widgets/second_main_button.dart';
 
 class PlayerProfilePage extends StatefulWidget {
   final PlayerModel playerModel;
+
   const PlayerProfilePage({Key? key, required this.playerModel})
       : super(key: key);
 

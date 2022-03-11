@@ -8,6 +8,7 @@ import 'package:playtogether_hirer/widgets/notification_card.dart';
 class NotificationsPage extends StatefulWidget {
   final HirerModel hirerModel;
   final TokenModel tokenModel;
+
   const NotificationsPage(
       {Key? key, required this.hirerModel, required this.tokenModel})
       : super(key: key);

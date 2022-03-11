@@ -10,6 +10,7 @@ import 'package:playtogether_hirer/widgets/player_card.dart';
 class HomePage extends StatefulWidget {
   final HirerModel hirerModel;
   final TokenModel tokenModel;
+
   const HomePage({
     Key? key,
     required this.hirerModel,
